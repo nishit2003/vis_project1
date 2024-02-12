@@ -16,9 +16,7 @@ input select{
    width: 100%;
    padding: 12px;
    border: 1px solid #ccc;
-   border-radius: 4px;
-   box-sizing: border-box;
-   resize: vertical;
+   border-radius: 30px;
  }
  
  /* Style the submit button */
@@ -41,7 +39,6 @@ input select{
    padding: 20px;
  }
  
- /* Floating column for labels: 25% width */
  .col-25 {
    float: left;
    width: 25%;
@@ -55,7 +52,7 @@ input select{
    margin-top: 6px;
  }
  
- /* Clear floats after the columns */
+ 
  .row:after {
    content: "";
    display: table;
@@ -64,8 +61,8 @@ input select{
  
  
  @media screen and (max-width: 600px) {
-   .col-25, .col-75, input[type=submit] {
+   .col-25, .col-75, button {
      width: 100%;
-     margin-top: 0;
+     margin-top: 10px;
    }
  }
