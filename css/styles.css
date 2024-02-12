@@ -1,0 +1,68 @@
+body {
+   font-family: Arial, sans-serif;
+   margin: 10;
+   padding: 10;
+}
+
+header {
+   background-color: #333;
+   color: white;
+   text-align: center;
+   padding: 20px 0;
+   justify-content: center;
+}
+
+h1 {
+   margin: 0;
+}
+
+.main {
+   padding: 20px;
+}
+
+.controls {
+   margin-bottom: 20px;
+}
+
+label {
+   display: block;
+   margin-bottom: 5px;
+}
+
+select, button {
+   padding: 8px;
+   font-size: 16px;
+   margin-bottom: 10px;
+}
+
+.visualization-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.bar-graph {
+   width: 400px;
+   height: 300px;
+   border: 1px solid #ccc;
+   margin-top: 20px;
+}
+
+
+/* Style for the bar graph */
+.bar-graph {
+   display: flex;
+   align-items: flex-end; /* Align bars from the bottom */
+   height: 300px; /* Adjust as needed */
+}
+
+.bar {
+   flex: 1;
+   margin: 0 5px; /* Spacing between bars */
+   background-color: #4CAF50; /* Default color for bars */
+}
+
+.bar-label {
+   text-align: center;
+   margin-top: 5px;
+}
