@@ -18,6 +18,17 @@ input select{
    border: 1px solid #ccc;
    border-radius: 30px;
  }
+
+
+ footer{
+   position:fixed;
+   left:10px;
+   bottom: 5px;
+   height:90px;
+   right: 10px;
+   background:#333;
+   color: white;
+ }
  
  /* Style the submit button */
  button {
