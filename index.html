@@ -1,84 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US Health Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <header>
-        <h1>US Health Dashboard</h1>
-    </header>
-
-    <main>
-      <div class="controls" style="width:200px;">
-         <label for="attributesSelect">Select Attribute 1:</label>
-         <select id="attributesSelect">
-           <option value="cnty_fips">County FIPS</option>
-           <option value="display_name">Display Name</option>
-           <option value="poverty_perc">Poverty Percentage</option>
-           <option value="median_household_income">Median Household Income</option>
-           <option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
-           <option value="air_quality">Air Quality</option>
-           <option value="park_access">Park Access</option>
-           <option value="percent_inactive">Percent Inactive</option>
-           <option value="percent_smoking">Percent Smoking</option>
-           <option value="urban_rural_status">Urban Rural Status</option>
-           <option value="elderly_percentage">Elderly Percentage</option>
-           <option value="number_of_hospitals">Number of Hospitals</option>
-           <option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
-           <option value="percent_no_heath_insurance">Percent No Health Insurance</option>
-           <option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
-           <option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
-           <option value="percent_stroke">Percent Stroke</option>
-           <option value="percent_high_cholesterol">Percent High Cholesterol</option>
-         </select>
-
-
-         <label for="attributesSelect">Select Attribute 2:</label>
-         <select id="attributesSelect">
-           <option value="cnty_fips">County FIPS</option>
-           <option value="display_name">Display Name</option>
-           <option value="poverty_perc">Poverty Percentage</option>
-           <option value="median_household_income">Median Household Income</option>
-           <option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
-           <option value="air_quality">Air Quality</option>
-           <option value="park_access">Park Access</option>
-           <option value="percent_inactive">Percent Inactive</option>
-           <option value="percent_smoking">Percent Smoking</option>
-           <option value="urban_rural_status">Urban Rural Status</option>
-           <option value="elderly_percentage">Elderly Percentage</option>
-           <option value="number_of_hospitals">Number of Hospitals</option>
-           <option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
-           <option value="percent_no_heath_insurance">Percent No Health Insurance</option>
-           <option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
-           <option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
-           <option value="percent_stroke">Percent Stroke</option>
-           <option value="percent_high_cholesterol">Percent High Cholesterol</option>
-         </select>
-       </div>
-       
-
-         <label for="graph-type">Select Graph Type:</label>
-
-            <select id="graph-type">
-                <option value="bargraph">Bar Graph</option>
-                <option value="histogram">Histogram</option>
-                <option value="scatterplot">Scatter Plot</option>
-                <option value="choropleth">Choropleth</option>
-            </select>
-             
-            <button id="submit-btn">Submit</button>
-
-      <div class="visualization-container">
-         <!-- have types of graph here -->
-         <div id="bar-graph" class="bar-graph">
-         </div>
-              <!-- more to come -->
-      </div>
-
-    </main>
-    <script src="js/script.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>US Health Dashboard</title>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+		<header>
+			<h1>US Health Dashboard</h1>
+		</header>
+		<div class="container">
+		<form>
+				<div class="row">
+					<div class="col-25">
+						<label for="attributesSelect">Select Attribute 1:</label>
+					</div>
+					<div class="col-75">
+						<select id="attributesSelect">
+							<option value="cnty_fips">County FIPS</option>
+							<option value="display_name">Display Name</option>
+							<option value="poverty_perc">Poverty Percentage</option>
+							<option value="median_household_income">Median Household Income</option>
+							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
+							<option value="air_quality">Air Quality</option>
+							<option value="park_access">Park Access</option>
+							<option value="percent_inactive">Percent Inactive</option>
+							<option value="percent_smoking">Percent Smoking</option>
+							<option value="urban_rural_status">Urban Rural Status</option>
+							<option value="elderly_percentage">Elderly Percentage</option>
+							<option value="number_of_hospitals">Number of Hospitals</option>
+							<option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
+							<option value="percent_no_heath_insurance">Percent No Health Insurance</option>
+							<option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
+							<option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
+							<option value="percent_stroke">Percent Stroke</option>
+							<option value="percent_high_cholesterol">Percent High Cholesterol</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="attributesSelect">Select Attribute 2:</label>
+					</div>
+					<div class="col-75">
+						<select id="attributesSelect">
+							<option value="cnty_fips">County FIPS</option>
+							<option value="display_name">Display Name</option>
+							<option value="poverty_perc">Poverty Percentage</option>
+							<option value="median_household_income">Median Household Income</option>
+							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
+							<option value="air_quality">Air Quality</option>
+							<option value="park_access">Park Access</option>
+							<option value="percent_inactive">Percent Inactive</option>
+							<option value="percent_smoking">Percent Smoking</option>
+							<option value="urban_rural_status">Urban Rural Status</option>
+							<option value="elderly_percentage">Elderly Percentage</option>
+							<option value="number_of_hospitals">Number of Hospitals</option>
+							<option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
+							<option value="percent_no_heath_insurance">Percent No Health Insurance</option>
+							<option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
+							<option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
+							<option value="percent_stroke">Percent Stroke</option>
+							<option value="percent_high_cholesterol">Percent High Cholesterol</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="graph-type">Select Graph Type:</label>
+					</div>
+					<div class="col-75">
+						<select id="graph-type">
+							<option value="bargraph">Bar Graph</option>
+							<option value="histogram">Histogram</option>
+							<option value="scatterplot">Scatter Plot</option>
+							<option value="choropleth">Choropleth</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<button id="submit-btn">Submit</button>
+				</div>
+		</form>
+		</div>
+		<main>
+			<div class="visualization-container">
+				<!-- have types of graph here -->
+				<div id="bar-graph" class="bar-graph">
+				</div>
+				<!-- more to come -->
+			</div>
+		</main>
+		<script src="js/script.js"></script>
+	</body>
 </html>
