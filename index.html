@@ -14,7 +14,7 @@
 		<form>
 				<div class="row">
 					<div class="col-25">
-						<label for="attributesSelect">Select Attribute 1:</label>
+						<label>Select Attribute 1:</label>
 					</div>
 					<div class="col-75">
 						<select id="attributesSelect1">
@@ -41,7 +41,7 @@
 				</div>
 				<div class="row">
 					<div class="col-25">
-						<label for="attributesSelect">Select Attribute 2:</label>
+						<label>Select Attribute 2:</label>
 					</div>
 					<div class="col-75">
 						<select id="attributesSelect2">
@@ -66,32 +66,22 @@
 						</select>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-25">
-						<label for="graph-type">Select Graph Type:</label>
-					</div>
-					<div class="col-75">
-						<select id="graph-type">
-							<option value="bargraph">Bar Graph</option>
-							<option value="histogram">Histogram</option>
-							<option value="scatterplot">Scatter Plot</option>
-							<option value="choropleth">Choropleth</option>
-							<option value="scatterplot">scatterplot</option>
-						</select>
-					</div>
-				</div>
+
 				<div class="row">
 					<button id="submit-btn">Submit</button>
 				</div>
+
 		</form>
 		</div>
 		<main>
 			<div class="visualization-container">
-				<!-- have types of graph here -->
-				<div id="bar-graph" class="bar-graph">
-				</div>
-				<!-- more to come -->
+				<div class="coloumn " id="bar-graph"></div>
+				<div class="coloumn " id="scatterplot"></div>
+				<div class="coloumn " id=" choropleth"></div>
 			</div>
+
+         <div id="chart"></div>
+
 		</main>
       <footer>
       <h2>This data is pulled from the US Heart and Stroke Atlas <a href="https://www.cdc.gov/dhdsp/maps/atlas/index.htm"> Here. </a> </h2>

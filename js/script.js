@@ -1,186 +1,246 @@
-// Updating header text
 
-document.addEventListener('DOMContentLoaded', function() {
-   const form = document.querySelector('form');
-   const visualizationContainer = document.querySelector('.visualization-container');
+// // Scatterplot
 
-   function updateHeaderText(attribute1, attribute2, graphType) {
-       const header = document.querySelector('header h1');
-       header.textContent = `US Health Dashboard - ${attribute1} vs ${attribute2} (${graphType})`;
-   }
-// *********************************************
+// /**
+//  * Load data from CSV file asynchronously and render scatter plot
+//  */
+// let data, scatterplot;
+// d3.csv('data/national_health_data.csv')
+//   .then(_data => {
+//     data = _data;
+//     data.forEach(d => {
+//       d.poverty_perc = +d.poverty_perc;
+//       d.percent_no_heath_insurance = +d.percent_no_heath_insurance;
+//     });
+    
+//     scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data);
+//     scatterplot.updateVis();
+//   })
+//   .catch(error => console.error(error));
+  
+// console.log('Scatterplot');
 
-   // Function to draw the bar graph
-   function drawBarGraph(data) {
-       visualizationContainer.innerHTML = '';
 
-       // Set up SVG dimensions
-       const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-       const width = 600 - margin.left - margin.right;
-       const height = 400 - margin.top - margin.bottom;
+// class Scatterplot {
 
-       // Append SVG to the visualization container
-       const svg = d3.select('.visualization-container').append('svg')
-           .attr('width', width + margin.left + margin.right)
-           .attr('height', height + margin.top + margin.bottom)
-           .append('g')
-           .attr('transform', `translate(${margin.left},${margin.top})`);
+//    /**
+//     * Class constructor with basic chart configuration
+//     * @param {Object}
+//     * @param {Array}
+//     */
+//    constructor(_config, _data) {
+//      this.config = {
+//        parentElement: _config.parentElement,
+//        containerWidth: _config.containerWidth || 600,
+//        containerHeight: _config.containerHeight || 400,
+//        margin: _config.margin || {top: 25, right: 20, bottom: 20, left: 35},
+//        tooltipPadding: _config.tooltipPadding || 15
+//      }
+//      this.data = _data;w
+//      this.initVis();
+//    }
+   
+//    /**
+//     * We initialize scales/axes and append static elements, such as axis titles.
+//     */
+//    initVis() {
+//      let vis = this;
+ 
+//      // Calculate inner chart size. Margin specifies the space around the actual chart.
+//      vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
+//      vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
+ 
+//      // Initialize scales
+//      vis.colorScale = d3.scaleOrdinal()
+//          .range(['#d3eecd', '#7bc77e', '#2a8d46']) // light green to dark green
+//          .domain(['Easy','Intermediate','Difficult']);
+ 
+//      vis.xScale = d3.scaleLinear()
+//          .range([0, vis.width]);
+ 
+//      vis.yScale = d3.scaleLinear()
+//          .range([vis.height, 0]);
+ 
+//      // Initialize axes
+//      vis.xAxis = d3.axisBottom(vis.xScale)
+//          .ticks(6)
+//          .tickSize(-vis.height - 10)
+//          .tickPadding(10)
+//          .tickFormat(d => d + ' km');
+ 
+//      vis.yAxis = d3.axisLeft(vis.yScale)
+//          .ticks(6)
+//          .tickSize(-vis.width - 10)
+//          .tickPadding(10);
+ 
+//      // Define size of SVG drawing area
+//      vis.svg = d3.select(vis.config.parentElement)
+//          .attr('width', vis.config.containerWidth)
+//          .attr('height', vis.config.containerHeight);
+ 
+//      // Append group element that will contain our actual chart 
+//      // and position it according to the given margin config
+//      vis.chart = vis.svg.append('g')
+//          .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
+ 
+//      // Append empty x-axis group and move it to the bottom of the chart
+//      vis.xAxisG = vis.chart.append('g')
+//          .attr('class', 'axis x-axis')
+//          .attr('transform', `translate(0,${vis.height})`);
+     
+//      // Append y-axis group
+//      vis.yAxisG = vis.chart.append('g')
+//          .attr('class', 'axis y-axis');
+ 
+//      // Append both axis titles
+//      vis.chart.append('text')
+//          .attr('class', 'axis-title')
+//          .attr('y', vis.height - 15)
+//          .attr('x', vis.width + 10)
+//          .attr('dy', '.71em')
+//          .style('text-anchor', 'end')
+//          .text('Distance');
+ 
+//      vis.svg.append('text')
+//          .attr('class', 'axis-title')
+//          .attr('x', 0)
+//          .attr('y', 0)
+//          .attr('dy', '.71em')
+//          .text('Hours');
+ 
+//      // Specificy accessor functions
+//      vis.colorValue = d => d.difficulty;
+//      vis.xValue = d => d.time;
+//      vis.yValue = d => d.distance;
+//    }
+ 
+//    /**
+//     * Prepare the data and scales before we render it.
+//     */
+//    updateVis() {
+//      let vis = this;
+     
+//      // Set the scale input domains
+//      vis.xScale.domain([0, d3.max(vis.data, vis.xValue)]);
+//      vis.yScale.domain([0, d3.max(vis.data, vis.yValue)]);
+ 
+//      // Add circles
+//      vis.circles = vis.chart.selectAll('.point')
+//          .data(vis.data, d => d.trail)
+//        .join('circle')
+//          .attr('class', 'point')
+//          .attr('r', 4)
+//          .attr('cy', d => vis.yScale(vis.yValue(d)))
+//          .attr('cx', d => vis.xScale(vis.xValue(d)))
+//          .attr('fill', d => vis.colorScale(vis.colorValue(d)));
+ 
+ 
+//      // Tooltip event listeners
+//      vis.circles
+//          .on('mouseover', (event,d) => {
+//            d3.select('#tooltip')
+//              .style('display', 'block')
+//              .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
+//              .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
+//              .html(`
+//                <div class="tooltip-title">${d.trail}</div>
+//                <div><i>${d.region}</i></div>
+//                <ul>
+//                  <li>${d.distance} km, ~${d.time} hours</li>
+//                  <li>${d.difficulty}</li>
+//                  <li>${d.season}</li>
+//                </ul>
+//              `);
+//          })
+//          .on('mouseleave', () => {
+//            d3.select('#tooltip').style('display', 'none');
+//          });
+     
+//      // Update the axes/gridlines
+//      // We use the second .call() to remove the axis and just show gridlines
+//      vis.xAxisG
+//          .call(vis.xAxis)
+//          .call(g => g.select('.domain').remove());
+ 
+//      vis.yAxisG
+//          .call(vis.yAxis)
+//          .call(g => g.select('.domain').remove())
+//    }
+ 
+//  }
 
-       // Extract the values from the data
-       const values = data.map(d => d.value);
 
-       // Set up scales
-       const x = d3.scaleBand()
-           .domain(data.map(d => d.label))
-           .range([0, width])
-           .padding(0.1);
+// Load data from CSV file asynchronously
+d3.csv('data/national_health_data.csv')
+  .then(data => {
+    // Filter out rows with value -1 for both variables
+    data = data.filter(d => d.poverty_perc !== -1 && d.percent_no_heath_insurance !== -1);
 
-       const y = d3.scaleLinear()
-           .domain([0, d3.max(values)])
-           .nice()
-           .range([height, 0]);
+    // Convert string values to numbers
+    data.forEach(d => {
+      d.poverty_perc = +d.poverty_perc;
+      d.percent_no_heath_insurance = +d.percent_no_heath_insurance;
+    });
 
-       // Draw bars
-       svg.selectAll('.bar')
-           .data(data)
-           .enter().append('rect')
-           .attr('class', 'bar')
-           .attr('x', d => x(d.label))
-           .attr('y', d => y(d.value))
-           .attr('width', x.bandwidth())
-           .attr('height', d => isNaN(d.value) ? 0 : height - y(d.value)); // Handle invalid values
+    // Initialize the scatterplot
+    initScatterplot(data);
+  })
+  .catch(error => console.error(error));
 
-       // Draw x-axis
-       svg.append('g')
-           .attr('class', 'x-axis')
-           .attr('transform', `translate(0,${height})`)
-           .call(d3.axisBottom(x));
+// Function to initialize the scatterplot
+function initScatterplot(data) {
+  const margin = { top: 20, right: 20, bottom: 40, left: 100 };
+  const width = 500 - margin.left - margin.right;
+  const height = 400 - margin.top - margin.bottom;
 
-       // Draw y-axis
-       svg.append('g')
-           .attr('class', 'y-axis')
-           .call(d3.axisLeft(y));
-   }
+  // Create SVG container
+  const svg = d3.select('#scatterplot')
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
 
-   // Event listener for form submission
-   form.addEventListener('submit', function(event) {
-       event.preventDefault(); // Prevent form submission
+  // Set up scales
+  const xScale = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.percent_no_heath_insurance)])
+    .range([0, width]);
 
-       // Get the selected attributes and graph type from the form
-       const attribute1 = document.getElementById('attributesSelect1').options[document.getElementById('attributesSelect1').selectedIndex].textContent;
-       const attribute2 = document.getElementById('attributesSelect2').options[document.getElementById('attributesSelect2').selectedIndex].textContent;
-       const graphType = document.getElementById('graph-type').value;
+  const yScale = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.poverty_perc)])
+    .range([height, 0]);
 
-       // Update the header text
-       updateHeaderText(attribute1, attribute2, graphType);
+  // Add circles
+  svg.selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('cx', d => xScale(d.percent_no_heath_insurance))
+    .attr('cy', d => yScale(d.poverty_perc))
+    .attr('r', 4)
+    .style('fill', 'steelblue');
 
-       // Fetch data from CSV file
-       d3.csv('data/national_health_data.csv')
-           .then(data => {
-               // Convert data types if necessary
-               data.forEach(d => {
-                   // Convert to appropriate data types
-                   if (d.value === '-1') {
-                       d.value = NaN; // or replace with a default value
-                   } else {
-                       d.value = +d.value; // Convert to number
-                   }
-               });
+  // Add X axis
+  svg.append('g')
+    .attr('transform', `translate(0, ${height})`)
+    .call(d3.axisBottom(xScale));
 
-               // Draw the bar graph if the graph type is "bargraph"
-               if (graphType === 'bargraph') {
-                   drawBarGraph(data);
-               }
-           })
-           .catch(error => {
-               console.error('Error loading data:', error);
-           });
-   });
-});
+  // Add Y axis
+  svg.append('g')
+    .call(d3.axisLeft(yScale));
 
-// *********************************************
+  // Add X axis label
+  svg.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('x', width / 2)
+    .attr('y', height + margin.bottom)
+    .text('Percent No Health Insurance');
 
-document.addEventListener('DOMContentLoaded', function() {
-   const form = document.querySelector('form');
-   const visualizationContainer = document.querySelector('.visualization-container');
-   let scatterplot;
-
-   function updateHeaderText(attribute1, attribute2, graphType) {
-       const header = document.querySelector('header h1');
-       header.textContent = `US Health Dashboard - ${attribute1} vs ${attribute2} (${graphType})`;
-   }
-
-   form.addEventListener('submit', function(event) {
-       event.preventDefault();
-
-       const attribute1 = document.getElementById('attributesSelect1').options[document.getElementById('attributesSelect1').selectedIndex].textContent;
-       const attribute2 = document.getElementById('attributesSelect2').options[document.getElementById('attributesSelect2').selectedIndex].textContent;
-       const graphType = document.getElementById('graph-type').value;
-
-       updateHeaderText(attribute1, attribute2, graphType);
-
-       d3.csv('data/national_health_data.csv')
-           .then(data => {
-               if (graphType === 'scatterplot') {
-                   // Filter data based on selected attributes
-                   const filteredData = data.map(d => ({ attribute1: d[attribute1], attribute2: d[attribute2] }));
-                   drawScatterplot(filteredData);
-               }
-           })
-           .catch(error => {
-               console.error('Error loading data:', error);
-           });
-   });
-
-   function drawScatterplot(data, attribute1, attribute2) {
-       visualizationContainer.innerHTML = '';
-
-       const margin = { top: 20, right: 20, bottom: 50, left: 60 };
-       const width = 600 - margin.left - margin.right;
-       const height = 400 - margin.top - margin.bottom;
-
-       const svg = d3.select('.visualization-container').append('svg')
-           .attr('width', width + margin.left + margin.right)
-           .attr('height', height + margin.top + margin.bottom)
-           .append('g')
-           .attr('transform', `translate(${margin.left},${margin.top})`);
-
-       const xScale = d3.scaleLinear()
-           .domain([0, d3.max(data, d => d.attribute1)])
-           .range([0, width]);
-
-       const yScale = d3.scaleLinear()
-           .domain([0, d3.max(data, d => d.attribute2)])
-           .range([height, 0]);
-
-       svg.selectAll('.dot')
-           .data(data)
-           .enter().append('circle')
-           .attr('class', 'dot')
-           .attr('cx', d => xScale(d.attribute1))
-           .attr('cy', d => yScale(d.attribute2))
-           .attr('r', 4);
-
-       // X-axis
-       svg.append('g')
-           .attr('transform', `translate(0, ${height})`)
-           .call(d3.axisBottom(xScale))
-           .append('text')
-           .attr('class', 'label')
-           .attr('x', width)
-           .attr('y', -6)
-           .style('text-anchor', 'end')
-           .text(attribute1);
-
-       // Y-axis
-       svg.append('g')
-           .call(d3.axisLeft(yScale))
-           .append('text')
-           .attr('class', 'label')
-           .attr('transform', 'rotate(-90)')
-           .attr('y', 6)
-           .attr('dy', '.71em')
-           .style('text-anchor', 'end')
-           .text(attribute2);
-   }
-});
+  // Add Y axis label
+  svg.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -height / 2)
+    .attr('y', margin.left-140)
+    .text('Poverty Percentage');
+}

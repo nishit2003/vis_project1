@@ -2,6 +2,7 @@ body {
    font-family: Arial, sans-serif;
    margin: 10;
    padding: 10;
+   height: 1000px;
 }
 
 header {
@@ -23,6 +24,7 @@ input select{
  footer{
    position:fixed;
    left:10px;
+   overflow: hidden;
    bottom: 5px;
    height:90px;
    right: 10px;
@@ -30,7 +32,7 @@ input select{
    color: white;
  }
  
- /* Style the submit button */
+
  button {
    background-color: #04AA6D;
    color: white;
@@ -63,13 +65,15 @@ input select{
    margin-top: 6px;
  }
  
+ .coloumn{
+   width: 33.33%;
+ }
  
  .row:after {
    content: "";
    display: table;
    clear: both;
  }
- 
  
  @media screen and (max-width: 600px) {
    .col-25, .col-75, button {
