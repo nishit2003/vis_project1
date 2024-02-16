@@ -38,3 +38,30 @@ d3.selectAll('.legend-btn').on('click', function() {
    scatterplot.data = data.filter(d => selectedArea.includes(d.urban_rural_status));
    scatterplot.updateVis();
  });
+
+
+
+ Promise.all([
+  d3.json('data/counties-10m.json'),
+  d3.csv('data/national_health_data.csv')
+]).then(data => {
+  const geoData = data[0];
+  const countyPopulationData = data[1];
+
+  // Combine both datasets by adding the population density to the TopoJSON file
+  console.log(geoData);
+  geoData.objects.counties.geometries.forEach(d => {
+    console.log(d);  
+    for (let i = 0; i < countyPopulationData.length; i++) {
+      if (d.id === countyPopulationData[i].cnty_fips) {
+        d.properties.pop = +countyPopulationData[i].Value;
+      }
+
+    }
+  });
+
+  const choroplethMap = new ChoroplethMap({ 
+    parentElement: '.viz',   
+  }, geoData);
+})
+.catch(error => console.error(error));

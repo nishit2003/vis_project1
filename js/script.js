@@ -120,11 +120,10 @@ class Scatterplot {
            .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
            .html(`
              <div class="tooltip-title">${d.display_name}</div>
-            //  <div><i>${d.region}</i></div>
+             <div><i> Median Income : ${d.median_household_income}</i></div>
              <ul>
-               <li>${d.percent_no_heath_insurance} km, ~${d.poverty_perc} hours</li>
-               <li>${d.urban_rural_status}</li>
-               // <li>${d.season}</li>
+               <li> People wihtout health Insurance${d.percent_no_heath_insurance} %</li>
+               <li>Poverty rate  ${d.poverty_perc} %</li>
              </ul>
            `);
        })
