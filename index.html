@@ -18,8 +18,6 @@
 					</div>
 					<div class="col-75">
 						<select id="attributesSelect1">
-							<option value="cnty_fips">County FIPS</option>
-							<option value="display_name">Display Name</option>
 							<option value="poverty_perc">Poverty Percentage</option>
 							<option value="median_household_income">Median Household Income</option>
 							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
@@ -45,8 +43,6 @@
 					</div>
 					<div class="col-75">
 						<select id="attributesSelect2">
-							<option value="cnty_fips">County FIPS</option>
-							<option value="display_name">Display Name</option>
 							<option value="poverty_perc">Poverty Percentage</option>
 							<option value="median_household_income">Median Household Income</option>
 							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
@@ -72,23 +68,32 @@
 				</div>
 
 		</form>
+
+
 		</div>
 		<main>
 			<div class="visualization-container">
-				<div class="coloumn " id="bar-graph"></div>
-				<div class="coloumn " id="scatterplot"></div>
-				<div class="coloumn " id=" choropleth"></div>
+				<svg id="bar-graph"></svg>
+				<svg id="scatterplot"></svg>
+            <ul class="legend">
+               <li class="legend-btn" rural_urban="Rural"><span class="legend-symbol"></span> Rural</li>
+               <li class="legend-btn" rural_urban="Small City"><span class="legend-symbol"></span> Small City</li>
+               <li class="legend-btn" rural_urban="Suburban"><span class="legend-symbol"></span> Suburban</li>
+               <li class="legend-btn" rural_urban="Urban"><span class="legend-symbol"></span> Urban</li>
+           </ul>
+
+				<svg id=" choropleth"></svg>
 			</div>
-
-         <div id="chart"></div>
-
 		</main>
-      <footer>
-      <h2>This data is pulled from the US Heart and Stroke Atlas <a href="https://www.cdc.gov/dhdsp/maps/atlas/index.htm"> Here. </a> </h2>
-      <h3>This visualization uses d3.js library to create the graphs demanded by the user.</h3>
-   </footer>
+
+      <div class="source">
+         All visualizations created using D3.js library and source: Data from <a href="https://www.cdc.gov/dhdsp/maps/atlas/index.htm">US Heart and Stroke Atlas</a>
+     </div>
+ 
       
       <script src="https://d3js.org/d3.v6.min.js"></script>
 		<script src="js/script.js"></script>
+      <script src="js/main.js"></script>
+
 	</body>
 </html>

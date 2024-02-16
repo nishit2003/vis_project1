@@ -1,9 +1,9 @@
 body {
-   font-family: Arial, sans-serif;
-   margin: 10;
-   padding: 10;
-   height: 1000px;
-}
+   font-family: 'Noto Sans JP', sans-serif;
+   font-size: 13px;
+   padding: 30px;
+   background: #f7f7f7;
+ }
 
 header {
    background-color: #333;
@@ -20,19 +20,6 @@ input select{
    border-radius: 30px;
  }
 
-
- footer{
-   position:fixed;
-   left:10px;
-   overflow: hidden;
-   bottom: 5px;
-   height:90px;
-   right: 10px;
-   background:#333;
-   color: white;
- }
- 
-
  button {
    background-color: #04AA6D;
    color: white;
@@ -42,9 +29,103 @@ input select{
    cursor: pointer;
    float: right;
  }
- .row {
-   margin-bottom: 10px; 
+
+/* Scatter Plot  */
+ /* Axis */
+ .axis line {
+   fill: none;
+   stroke: #ddd;
+   shape-rendering: crispEdges;
  }
+ .axis text {
+   font-size: 13px;
+   fill: #6b6b6b;
+ }
+ .axis-title {
+   font-size: 13px;
+   fill: #888;
+ }
+ .y-axis .tick:first-child line {
+   stroke: #b1b1b1;
+ }
+ .y-axis .tick:first-child text {
+   display: none;
+ }
+ .x-axis .tick:first-child line {
+   display: none;
+ }
+ .axis path {
+   display: none;
+ }
+
+ /* Legend */
+.legend {
+   margin: 20px 0;
+   list-style: none;
+   padding: 0;
+ }
+ .legend-btn {
+   display: inline-block;
+   margin: 0 20px 0 0;
+   cursor: pointer;
+   transition: all ease-in-out 200ms;
+ }
+ .legend-btn:hover.legend-btn.inactive:hover  {
+   opacity: 0.7;
+ }
+ .legend-btn.inactive {
+   opacity: 0.5;
+ }
+ .legend-symbol {
+   width: 12px;
+   height: 12px;
+   margin-right: 3px;
+   display: inline-block;
+ }
+ .legend-btn[rural_urban="Rural"] .legend-symbol {
+   background: #BFEFFF;
+ }
+ .legend-btn[rural_urban="Small City"] .legend-symbol {
+   background:  #87CEEB;
+ }
+ .legend-btn[rural_urban="Suburban"] .legend-symbol {
+   background: #4682B4;
+ }
+ .legend-btn[rural_urban="Urban"] .legend-symbol {
+   background: #1E90FF;
+ }
+
+ /* Tooltip */
+#tooltip {
+   position: absolute;
+   display: none;
+   background: #fff;
+   box-shadow: 3px 3px 3px 0px rgb(92 92 92 / 0.5);
+   border: 1px solid #ddd;
+   font-size: 12px;
+   font-weight: 500;
+   padding: 8px;
+   min-width: 160px;
+   color: #333;
+ }
+ .tooltip-title {
+   color: #000;
+   font-size: 14px;
+   font-weight: 600;
+ }
+ #tooltip ul {
+   margin: 5px 0 0 0;
+   padding-left: 20px;
+ }
+
+ 
+ /* **********Scatter ends here************* */
+   
+ 
+
+ /* .row {
+   margin-bottom: 10px; 
+ } */
 
  .container {
    border-radius: 5px;
@@ -65,10 +146,6 @@ input select{
    margin-top: 6px;
  }
  
- .coloumn{
-   width: 33.33%;
- }
- 
  .row:after {
    content: "";
    display: table;
@@ -80,4 +157,10 @@ input select{
      width: 100%;
      margin-top: 10px;
    }
+ }
+
+
+ .source {
+   font-size: 10px;
+   color: #888;
  }
