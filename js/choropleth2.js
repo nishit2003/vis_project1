@@ -1,4 +1,5 @@
-class ChoroplethMap {
+// map 2 right *******
+class ChoroplethMap2 {
 
    /**
     * Class constructor with basic configuration
@@ -18,9 +19,9 @@ class ChoroplethMap {
        legendRectWidth: 150
      }
      this.data = _data;
-     // this.config = _config;
+   //   this.config = _config;
  
-     this.us = _data;
+     this.us = {..._data};
  
      this.active = d3.select(null);
  
@@ -55,9 +56,10 @@ class ChoroplethMap {
            .scale(vis.width);
 
    vis.colorScale = d3.scaleLinear()
-     .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.poverty_perc))
-       .range(['#cfe2f2', '#0d306b'])
+     .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.percent_no_heath_insurance))
+       .range(['#008080', '#004c4c'])
        .interpolate(d3.interpolateHcl);
+
 
    vis.path = d3.geoPath()
            .projection(vis.projection);
@@ -77,8 +79,8 @@ class ChoroplethMap {
                .attr("d", vis.path)
                // .attr("class", "county-boundary")
                .attr('fill', d => {
-                     if (d.properties.poverty_perc !== -1) {
-                       return vis.colorScale(d.properties.poverty_perc);
+                     if (d.properties.percent_no_heath_insurance !== -1) {
+                       return vis.colorScale(d.properties.percent_no_heath_insurance);
                      } else {
                        return 'url(#lightstripe)';
                      }
@@ -88,7 +90,7 @@ class ChoroplethMap {
                .on('mousemove', (event,d) => {
                  console.log(d);
                  console.log(event);
-                   const povertyRate = d.properties.poverty_perc ? `<strong>${d.properties.poverty_perc}</strong> % poverty rate` : 'No data available'; 
+                   const People_wo_H = d.properties.percent_no_heath_insurance? `<strong>${d.properties.percent_no_heath_insurance}</strong> % of people without health insurance`: "0" ; 
 
                    d3.select('#tooltip_map')
                      .style('display', 'block')
@@ -96,12 +98,13 @@ class ChoroplethMap {
                      .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
                      .html(`
                        <div class="tooltip_map-title">${d.properties.name}</div>
-                       <div>${povertyRate}</div>
+                       <div>${People_wo_H}</div>
                      `);
                  })
                  .on('mouseleave', () => {
                    d3.select('#tooltip_map').style('display', 'none');
                  });
+
 
 
    vis.g.append("path")
@@ -111,5 +114,3 @@ class ChoroplethMap {
 
  }
 }
-
-// map 2 right *******
