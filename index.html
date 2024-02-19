@@ -1,125 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>US Health Dashboard</title>
-		<link rel="stylesheet" href="css/styles.css">
-	</head>
-	<body>
-		<header>
-			<h1>US Health Dashboard</h1>
-		</header>
-		<div class="container">
-		<form>
-				<div class="row">
-					<div class="col-25">
-						<label>Select Attribute 1:</label>
-					</div>
-					<div class="col-75">
-						<select id="attributesSelect1">
-							<option value="poverty_perc">Poverty Percentage</option>
-							<option value="median_household_income">Median Household Income</option>
-							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
-							<option value="air_quality">Air Quality</option>
-							<option value="park_access">Park Access</option>
-							<option value="percent_inactive">Percent Inactive</option>
-							<option value="percent_smoking">Percent Smoking</option>
-							<option value="urban_rural_status">Urban Rural Status</option>
-							<option value="elderly_percentage">Elderly Percentage</option>
-							<option value="number_of_hospitals">Number of Hospitals</option>
-							<option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
-							<option value="percent_no_heath_insurance">Percent No Health Insurance</option>
-							<option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
-							<option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
-							<option value="percent_stroke">Percent Stroke</option>
-							<option value="percent_high_cholesterol">Percent High Cholesterol</option>
-						</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-25">
-						<label>Select Attribute 2:</label>
-					</div>
-					<div class="col-75">
-						<select id="attributesSelect2">
-							<option value="poverty_perc">Poverty Percentage</option>
-							<option value="median_household_income">Median Household Income</option>
-							<option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
-							<option value="air_quality">Air Quality</option>
-							<option value="park_access">Park Access</option>
-							<option value="percent_inactive">Percent Inactive</option>
-							<option value="percent_smoking">Percent Smoking</option>
-							<option value="urban_rural_status">Urban Rural Status</option>
-							<option value="elderly_percentage">Elderly Percentage</option>
-							<option value="number_of_hospitals">Number of Hospitals</option>
-							<option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
-							<option value="percent_no_heath_insurance">Percent No Health Insurance</option>
-							<option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
-							<option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
-							<option value="percent_stroke">Percent Stroke</option>
-							<option value="percent_high_cholesterol">Percent High Cholesterol</option>
-						</select>
-					</div>
-				</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>US Health Dashboard</title>
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1 id="dashboardTitle">US Health Dashboard</h1>
+        </header>
+        <div class="container">
+            <form id="attributeForm">
+                <div class="row">
+                    <div class="col-25">
+                        <label>Select Attribute 1:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="attributesSelect1">
+                            <option value="poverty_perc">Poverty Percentage</option>
+                            <option value="median_household_income">Median Household Income</option>
+                            <option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
+                            <option value="air_quality">Air Quality</option>
+                            <option value="park_access">Park Access</option>
+                            <option value="percent_inactive">Percent Inactive</option>
+                            <option value="percent_smoking">Percent Smoking</option>
+                            <option value="urban_rural_status">Urban Rural Status</option>
+                            <option value="elderly_percentage">Elderly Percentage</option>
+                            <option value="number_of_hospitals">Number of Hospitals</option>
+                            <option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
+                            <option value="percent_no_heath_insurance">Percent No Health Insurance</option>
+                            <option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
+                            <option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
+                            <option value="percent_stroke">Percent Stroke</option>
+                            <option value="percent_high_cholesterol">Percent High Cholesterol</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Select Attribute 2:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="attributesSelect2">
+                            <option value="poverty_perc">Poverty Percentage</option>
+                            <option value="median_household_income">Median Household Income</option>
+                            <option value="education_less_than_high_school_percent">Education Less Than High School Percentage</option>
+                            <option value="air_quality">Air Quality</option>
+                            <option value="park_access">Park Access</option>
+                            <option value="percent_inactive">Percent Inactive</option>
+                            <option value="percent_smoking">Percent Smoking</option>
+                            <option value="urban_rural_status">Urban Rural Status</option>
+                            <option value="elderly_percentage">Elderly Percentage</option>
+                            <option value="number_of_hospitals">Number of Hospitals</option>
+                            <option value="number_of_primary_care_physicians">Number of Primary Care Physicians</option>
+                            <option value="percent_no_heath_insurance">Percent No Health Insurance</option>
+                            <option value="percent_high_blood_pressure">Percent High Blood Pressure</option>
+                            <option value="percent_coronary_heart_disease">Percent Coronary Heart Disease</option>
+                            <option value="percent_stroke">Percent Stroke</option>
+                            <option value="percent_high_cholesterol">Percent High Cholesterol</option>
+                        </select>
+                    </div>
+                </div>
 
-				<div class="row">
-					<button id="submit-btn">Submit</button>
-				</div>
+                <div class="row">
+                    <button id="submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+        <main>
+            <div class="visualization-container">
+                <svg id="scatterplot"></svg>
+                <ul class="legend">
+                    <li class="legend-btn" rural_urban="Rural"><span class="legend-symbol"></span> Rural</li>
+                    <li class="legend-btn" rural_urban="Small City"><span class="legend-symbol"></span> Small City</li>
+                    <li class="legend-btn" rural_urban="Suburban"><span class="legend-symbol"></span> Suburban</li>
+                    <li class="legend-btn" rural_urban="Urban"><span class="legend-symbol"></span> Urban</li>
+                </ul>
+                <div id="tooltip"></div>
+                <!-- ************MAPS************* -->
+                <h1>Choropleth Map</h1>
 
-		</form>
+                <div class="row-map">
+                    <div class="viz column"></div>
 
+                    <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5">
+                                <image
+                                    xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg=="
+                                    x="0"
+                                    y="0"
+                                    width="5"
+                                    height="5"
+                                ></image>
+                            </pattern>
+                        </defs>
+                    </svg>
 
-		</div>
-		<main>
-			<div class="visualization-container">
+                    <div id="tooltip_map"></div>
 
-				<svg id="bar-graph"></svg>
+                    <div class="vl"><!-- 2nd map  --></div>
 
-				<svg id="scatterplot"></svg>
-            <ul class="legend">
-               <li class="legend-btn" rural_urban="Rural"><span class="legend-symbol"></span> Rural</li>
-               <li class="legend-btn" rural_urban="Small City"><span class="legend-symbol"></span> Small City</li>
-               <li class="legend-btn" rural_urban="Suburban"><span class="legend-symbol"></span> Suburban</li>
-               <li class="legend-btn" rural_urban="Urban"><span class="legend-symbol"></span> Urban</li>
-           </ul>
-           <div id="tooltip"></div>
-<!-- ************MAPS************* -->
-           <h1>Choropleth Map </h1> 
-           
-         <div class="row-map">
-            <div class="viz column"></div>
-    
+                    <div class="viz2 column"></div>
 
-         <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"> </image> </pattern> </defs></svg>
+                    <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5">
+                                <image
+                                    xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg=="
+                                    x="0"
+                                    y="0"
+                                    width="5"
+                                    height="5"
+                                ></image>
+                            </pattern>
+                        </defs>
+                    </svg>
 
-         <div id="tooltip_map"></div>
+                    <div id="tooltip_map"></div>
+                </div>
 
-         <div class="vl"><!-- 2nd map  --></div>
+                <!-- maps end here -->
 
-         
-         <div class="viz2 column"></div>
+                <!-- Barsss -->
+                <div class="row-map">
+                    <div id="histogram" class="column"></div>
+                    <div class="vl"><!-- 2nd map  --></div>
+                    <div id="histogram2" class="column"></div>
+                </div>
+            </div>
+        </main>
 
-         <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"> </image> </pattern> </defs></svg>
+        <div class="source">All visualizations created using D3.js library and source data from <a href="https://www.cdc.gov/dhdsp/maps/atlas/index.htm">US Heart and Stroke Atlas</a></div>
 
-         <div id="tooltip_map"></div>
-      </div>
-
-			</div>
-
-		</main>
-
-      <div class="source">
-         All visualizations created using D3.js library and source data from <a href="https://www.cdc.gov/dhdsp/maps/atlas/index.htm">US Heart and Stroke Atlas</a>
-     </div>
- 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
-      <script src="js/topojson.v3.js"></script>
-      <script src="https://d3js.org/d3.v6.min.js"></script>
-		<script src="js/script.js"></script>
-      <script src="js/main.js"></script>
-      <script src="js/choropleth.js"></script>
-      <script src="js/choropleth2.js"></script>
-
-	</body>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+        <script src="js/topojson.v3.js"></script>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/choropleth.js"></script>
+        <script src="js/choropleth2.js"></script>
+        <script src="js/bars.js"></script>
+    </body>
 </html>

@@ -88,8 +88,8 @@ class ChoroplethMap2 {
 
      vis.counties
                .on('mousemove', (event,d) => {
-                 console.log(d);
-                 console.log(event);
+               //   console.log(d);
+               //   console.log(event);
                    const People_wo_H = d.properties.percent_no_heath_insurance? `<strong>${d.properties.percent_no_heath_insurance}</strong> % of people without health insurance`: "0" ; 
 
                    d3.select('#tooltip_map')

@@ -100,3 +100,7 @@ Promise.all([
 .catch(error => console.error(error));
 
 // Choropleth till here *********
+
+
+
+// Bar Charts ********************
