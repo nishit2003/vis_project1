@@ -171,7 +171,16 @@ input select{
   height: 500px;
   position: absolute;
   left: 50%;
-  margin-left: -3px;
+  margin-left: 3px;
+  /* top: 0; */
+}
+
+.vl2 {
+  border-left: 6px solid rgb(86, 139, 179);
+  height: 550px;
+  position: absolute;
+  left: 50%;
+  margin-left: 3px;
   /* top: 0; */
 }
 
@@ -226,3 +235,20 @@ input select{
    color: #888;
  }
 
+/* Barsssss */
+.row-bars{
+display: inline-block;
+}
+
+.column2{
+  float:right;
+}
+
+.vl2 {
+  border-left: 6px solid rgb(86, 139, 179);
+  height: 550px;
+  position: absolute;
+  left: 50%;
+  margin-left: 3px;
+  /* top: 0; */
+}

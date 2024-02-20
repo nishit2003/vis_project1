@@ -70,6 +70,7 @@
         </div>
         <main>
             <div class="visualization-container">
+                <h1>Correlation visualization (Scatterplot)</h1>
                 <svg id="scatterplot"></svg>
                 <ul class="legend">
                     <li class="legend-btn" rural_urban="Rural"><span class="legend-symbol"></span> Rural</li>
@@ -78,8 +79,10 @@
                     <li class="legend-btn" rural_urban="Urban"><span class="legend-symbol"></span> Urban</li>
                 </ul>
                 <div id="tooltip"></div>
+                
+
                 <!-- ************MAPS************* -->
-                <h1>Choropleth Map</h1>
+                <h1>Spatial visualizations (Choropleth Map)</h1>
 
                 <div class="row-map">
                     <div class="viz column"></div>
@@ -124,9 +127,11 @@
                 <!-- maps end here -->
 
                 <!-- Barsss -->
-                <div class="row-map">
+
+                <h1>Distribution visualizations (Histogram)</h1>
+                <div class="row-bars">
                     <div id="histogram" class="column"></div>
-                    <div class="vl"><!-- 2nd map  --></div>
+                    <div class="vl2"></div>
                     <div id="histogram2" class="column"></div>
                 </div>
             </div>
@@ -142,5 +147,6 @@
         <script src="js/choropleth.js"></script>
         <script src="js/choropleth2.js"></script>
         <script src="js/bars.js"></script>
+        <script src="js/bars2.js"></script>
     </body>
 </html>
