@@ -238,6 +238,7 @@ input select{
 /* Barsssss */
 .row-bars{
 display: inline-block;
+width: 100%;
 }
 
 .column2{

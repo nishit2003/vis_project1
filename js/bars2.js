@@ -1,14 +1,14 @@
 // set the dimensions and margins of the graph
-const margin1 = {top: 60, right:0, bottom: 50, left: 40};
-const width2 = 470 - margin1.left - margin1.right;
+const margin1 = {top: 60, right:20, bottom: 50, left: 100};
+const width2 = 500 - margin1.left - margin1.right;
 const height1 = 550 - margin1.top - margin1.bottom;
 
 // append the svg1 object to the body of the page
 const svg1 = d3.select("#histogram2")
   .append("svg")
-    .attr("width", 470)
+    .attr("width", 500)
     .attr("height", 550)
-    .attr("viewBox", "0 0 470 550")
+    .attr("viewBox", "0 0 500 550")
    //  .attr("preserveAspectRatio", "xMinYMin")
   .append("g")
     .attr("transform", `translate(${margin1.left}, ${margin1.top})`);
@@ -71,12 +71,14 @@ const mouseover = function(d) {
       .style("stroke", "#EF4A60")
       .style("opacity", .5)
 };
+
 const mousemove = function(event,d) {
     tooltip
-    .html(`<b>Number of counties</b>: ${d.length}`)
+    .html(`${d.length} <b>are without Health Insurance <b> <br> <b>Range</b>: ${d.x0} - ${d.x1} <br>`)
       .style("top", event.pageY - 10 + "px")
-      .style("left", event.pageX + 10 + "px")
+      .style("left", event.pageX + 300 + "px")
 };
+
 const mouseleave = function(d) {
     tooltip
       .style("opacity", 0)
