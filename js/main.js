@@ -1,3 +1,6 @@
+countyfilter=[];
+let choroplethMap; // Declare choroplethMap variable at the top level
+
 // Scatterplot
 let data, scatterplot;
 d3.csv('data/national_health_data.csv')
@@ -11,7 +14,7 @@ d3.csv('data/national_health_data.csv')
       d.percent_no_heath_insurance = +d.percent_no_heath_insurance;
     });
 
-    scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data);
+    scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data, choroplethMap);
     scatterplot.updateVis();
   })
   .catch(error => console.error(error));

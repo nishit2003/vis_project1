@@ -1,87 +1,34 @@
-
-document.getElementById('attributeForm').addEventListener('submit', function(event) {
-   event.preventDefault(); // Prevent form submission
- 
-   const attributeNames = {
-      poverty_perc: 'Poverty Percentage',
-      median_household_income: 'Median Household Income',
-      education_less_than_high_school_percent: 'Education Less Than High School Percentage',
-      air_quality: 'Air Quality',
-      park_access: 'Park Access',
-      percent_inactive: 'Percent Inactive',
-      percent_smoking: 'Percent Smoking',
-      urban_rural_status: 'Urban Rural Status',
-      elderly_percentage: 'Elderly Percentage',
-      number_of_hospitals: 'Number of Hospitals',
-      number_of_primary_care_physicians: 'Number of Primary Care Physicians',
-      percent_no_heath_insurance: 'Percent No Health Insurance',
-      percent_high_blood_pressure: 'Percent High Blood Pressure',
-      percent_coronary_heart_disease: 'Percent Coronary Heart Disease',
-      percent_stroke: 'Percent Stroke',
-      percent_high_cholesterol: 'Percent High Cholesterol',
-  };
-
-   // Get selected attribute values
-   var attribute1 = document.getElementById('attributesSelect1').value;
-   var attribute2 = document.getElementById('attributesSelect2').value;
- 
-   // Update header with selected attributes
-   document.getElementById('dashboardTitle').textContent = `US Health Dashboard - ${attributeNames[attribute1]} vs ${attributeNames[attribute2]}`;
- });
- 
-
 class ChoroplethMap {
 
-   /**
-    * Class constructor with basic configuration
-    * @param {Object}
-    * @param {Array}
-    */
-   constructor(_config, _data,_scatterplot) {
-     this.config = {
-       parentElement: _config.parentElement,
-       containerWidth: _config.containerWidth || 550,
-       containerHeight: _config.containerHeight || 700,
-       margin: _config.margin || {top: 10, right: 0, bottom: 10, left: 0},
-       tooltipPadding: 10,
-       legendBottom: 50,
-       legendLeft: 20,
-       legendRectHeight: 12, 
-       legendRectWidth: 150
-     }
-     this.data = _data;
-     // this.config = _config;
- 
-     this.us = _data;
-     this.active = d3.select(null); 
-
-     this.initVis();
-
-
-   }
-
-   /**
-   * We initialize scales/axes and append static elements, such as axis titles.
+  /**
+   * Class constructor with basic configuration
+   * @param {Object}
+   * @param {Array}
    */
-
-   brushed(selection) {
-    // Filter data based on brushed selection
-    const filteredData = this.data.filter(d => {
-      // Your brushing logic here
-      const x = d.properties.poverty_perc; // Assuming 'poverty_perc' is the attribute you're filtering on
-      return x >= selection[0][0] && x <= selection[1][0];
-    });
-    
-    // Update selectedData based on brushed selection
-    selectedData = filteredData;
-  
-    // Update scatterplot with selected data
-    this.scatterplot.updateVis(selectedData);
+  constructor(_config, _data) {
+    this.config = {
+      parentElement: _config.parentElement,
+      containerWidth: _config.containerWidth || 550,
+      containerHeight: _config.containerHeight || 700,
+      margin: _config.margin || {top: 10, right: 0, bottom: 10, left: 0},
+      tooltipPadding: 10,
+      legendBottom: 50,
+      legendLeft: 20,
+      legendRectHeight: 12, 
+      legendRectWidth: 150
+    };
+    this.data = _data;
+    this.us = _data;
+    this.initVis();
   }
-  
-  initVis() {
-   let vis = this;
 
+  /**
+  * We initialize scales/axes and append static elements, such as axis titles.
+  */
+
+ 
+ initVis() {
+   let vis = this;
    // Calculate inner chart size. Margin specifies the space around the actual chart.
    vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
    vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
@@ -115,7 +62,7 @@ class ChoroplethMap {
            .attr('class', 'center-container center-items us-state')
            .attr('transform', 'translate('+vis.config.margin.left+','+vis.config.margin.top+')')
            .attr('width', vis.width + vis.config.margin.left + vis.config.margin.right)
-           .attr('height', vis.height + vis.config.margin.top + vis.config.margin.bottom)
+           .attr('height', vis.height + vis.config.margin.top + vis.config.margin.bottom);
 
 
    vis.counties = vis.g.append("g")
@@ -127,12 +74,14 @@ class ChoroplethMap {
                // .attr("class", "county-boundary")
                .attr('fill', d => {
                      if (d.properties.poverty_perc !== -1) {
+                      // console.log(d)
                        return vis.colorScale(d.properties.poverty_perc);
                      } else {
                        return 'url(#lightstripe)';
                      }
                    });
 
+            
      vis.counties
                .on('mousemove', (event,d) => {
                //   console.log(d);
@@ -151,15 +100,32 @@ class ChoroplethMap {
                  .on('mouseleave', () => {
                    d3.select('#tooltip_map').style('display', 'none');
                  });
-
-
-   vis.g.append("path")
-               .datum(topojson.mesh(vis.us, vis.us.objects.states, function(a, b) { return a !== b; }))
-               .attr("id", "state-borders")
-               .attr("d", vis.path);
-
- 
-   }
-
+                 
+            
+    vis.g.append("path")
+           .datum(topojson.mesh(vis.us, vis.us.objects.states, function(a, b) { return a !== b; }))
+           .attr("id", "state-borders")
+           .attr("d", vis.path);
  }
 
+ // Method to highlight selected counties based on county IDs
+ highlightCounties(countyIDs) {
+  console.log(countyIDs);
+   let vis = this;
+
+   vis.counties.attr('fill', d => {
+    console.log(d)
+    // console.log("d.cnty_fips:", d.cnty_fips);
+     if (countyIDs.includes(d.id)) {
+      console.log("hi");
+       return 'yellow'; 
+     } else {
+       if (d.properties.poverty_perc !== -1) {
+         return vis.colorScale(d.properties.poverty_perc);
+       } else {
+         return 'url(#lightstripe)';
+       }
+     }
+   }); 
+ }
+}

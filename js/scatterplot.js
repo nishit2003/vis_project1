@@ -5,7 +5,7 @@ class Scatterplot {
     * @param {Object}
     * @param {Array}
     */
-   constructor(_config, _data) {
+   constructor(_config, _data, _choroplethMap) {
      this.config = {
        parentElement: _config.parentElement,
        containerWidth: _config.containerWidth || 800,
@@ -14,6 +14,8 @@ class Scatterplot {
        tooltipPadding: _config.tooltipPadding || 15
      }
      this.data = _data;
+     this.choroplethMap = _choroplethMap; // Pass an instance of ChoroplethMap
+
      this.initVis();
    }
 
@@ -88,11 +90,42 @@ class Scatterplot {
     vis.xValue = d => d.poverty_perc;
     vis.yValue = d => d.percent_no_heath_insurance;
 
+    // Initialize brush
+    vis.brush = d3.brush()
+        .extent([[0, 0], [vis.width, vis.height]])
+        .on("end", brushed);
+
+    // Append brush to the chart
+    vis.brushG = vis.chart.append("g")
+        .attr("class", "brush")
+        .call(vis.brush);
+
+    function brushed(event) {
+        if (event.selection) {
+            // Get the selected circles
+            const selectedCircles = vis.chart.selectAll('.point').filter(function (d) {
+                const cx = vis.xScale(vis.xValue(d));
+                const cy = vis.yScale(vis.yValue(d));
+                return event.selection[0][0] <= cx && cx <= event.selection[1][0] &&
+                    event.selection[0][1] <= cy && cy <= event.selection[1][1];
+            });
+
+            // Log the selected circles
+            console.log(selectedCircles.data());
+
+        const selectedCountyIDs = selectedCircles.data().map(d => d.cnty_fips);
+        console.log(selectedCountyIDs);
+
+        // Pass the selected county IDs to the method in the ChoroplethMap class
+        choroplethMap.highlightCounties(selectedCountyIDs);
+        choroplethMap2.highlightCounties(selectedCountyIDs);
+
+        }
+    }
    }
- 
-   /**
-   * Prepare the data and scales before we render it.
-   */
+   
+
+
   updateVis() {
    let vis = this;
    
@@ -132,7 +165,6 @@ class Scatterplot {
        });
    
    // Update the axes/gridlines
-   // We use the second .call() to remove the axis and just show gridlines
    vis.xAxisG
        .call(vis.xAxis)
        .call(g => g.select('.domain').remove());
@@ -140,5 +172,7 @@ class Scatterplot {
    vis.yAxisG
        .call(vis.yAxis)
        .call(g => g.select('.domain').remove())
+
+    
  }
 }

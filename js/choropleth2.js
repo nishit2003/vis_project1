@@ -21,10 +21,7 @@ class ChoroplethMap2 {
      this.data = _data;
    //   this.config = _config;
  
-     this.us = {..._data};
- 
-     this.active = d3.select(null);
- 
+     this.us = {..._data}; 
      this.initVis();
    }
 
@@ -111,6 +108,26 @@ class ChoroplethMap2 {
                .datum(topojson.mesh(vis.us, vis.us.objects.states, function(a, b) { return a !== b; }))
                .attr("id", "state-borders")
                .attr("d", vis.path);
+                }
 
+// Method to highlight selected counties based on county IDs
+highlightCounties(countyIDs) {
+  console.log(countyIDs);
+   let vis = this;
+
+   vis.counties.attr('fill', d => {
+    console.log(d)
+    // console.log("d.cnty_fips:", d.cnty_fips);
+     if (countyIDs.includes(d.id)) {
+      console.log("hi");
+       return 'yellow'; 
+     } else {
+       if (d.properties.percent_no_heath_insurance !== -1) {
+         return vis.colorScale(d.properties.percent_no_heath_insurance);
+       } else {
+         return 'url(#lightstripe)';
+       }
+     }
+   }); 
  }
 }
