@@ -15,6 +15,11 @@ class Scatterplot {
      }
      this.data = _data;
      this.initVis();
+
+     if (selectedData.length > 0) {
+      this.data = selectedData;
+    }
+     
    }
 
    initVis(){
@@ -89,7 +94,7 @@ class Scatterplot {
     vis.yValue = d => d.percent_no_heath_insurance;
 
    }
-
+ 
    /**
    * Prepare the data and scales before we render it.
    */

@@ -1,3 +1,4 @@
+let selectedData = [];   // Global variable to store selected data
 
 // Scatterplot
 // Load data from CSV file asynchronously
@@ -5,7 +6,6 @@ let data, scatterplot;
 d3.csv('data/national_health_data.csv')
   .then(csvdata => {
    data=csvdata;
-    // Filter out rows with value -1 for both variables
     data = data.filter(d => d.poverty_perc !== -1 && d.percent_no_heath_insurance !== -1);
 
     // Convert string values to numbers
@@ -16,7 +16,6 @@ d3.csv('data/national_health_data.csv')
 
     scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data);
     scatterplot.updateVis();
-
   })
   .catch(error => console.error(error));
 
@@ -66,6 +65,8 @@ d3.selectAll('.legend-btn').on('click', function() {
   const choroplethMap = new ChoroplethMap({ 
     parentElement: '.viz',   
   }, geoData);
+
+
 })
 .catch(error => console.error(error));
 

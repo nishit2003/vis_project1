@@ -37,7 +37,7 @@ class ChoroplethMap {
     * @param {Object}
     * @param {Array}
     */
-   constructor(_config, _data) {
+   constructor(_config, _data,_scatterplot) {
      this.config = {
        parentElement: _config.parentElement,
        containerWidth: _config.containerWidth || 550,
@@ -53,15 +53,17 @@ class ChoroplethMap {
      // this.config = _config;
  
      this.us = _data;
- 
-     this.active = d3.select(null);
- 
+     this.active = d3.select(null); 
+     this.scatterplot = _scatterplot;
+
      this.initVis();
+
    }
 
    /**
    * We initialize scales/axes and append static elements, such as axis titles.
    */
+  
   initVis() {
    let vis = this;
 
@@ -141,7 +143,7 @@ class ChoroplethMap {
                .attr("id", "state-borders")
                .attr("d", vis.path);
 
- }
-}
+   }
 
-// map 2 right *******
+ }
+
