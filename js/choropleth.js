@@ -54,15 +54,30 @@ class ChoroplethMap {
  
      this.us = _data;
      this.active = d3.select(null); 
-     this.scatterplot = _scatterplot;
 
      this.initVis();
+
 
    }
 
    /**
    * We initialize scales/axes and append static elements, such as axis titles.
    */
+
+   brushed(selection) {
+    // Filter data based on brushed selection
+    const filteredData = this.data.filter(d => {
+      // Your brushing logic here
+      const x = d.properties.poverty_perc; // Assuming 'poverty_perc' is the attribute you're filtering on
+      return x >= selection[0][0] && x <= selection[1][0];
+    });
+    
+    // Update selectedData based on brushed selection
+    selectedData = filteredData;
+  
+    // Update scatterplot with selected data
+    this.scatterplot.updateVis(selectedData);
+  }
   
   initVis() {
    let vis = this;
@@ -143,6 +158,7 @@ class ChoroplethMap {
                .attr("id", "state-borders")
                .attr("d", vis.path);
 
+ 
    }
 
  }

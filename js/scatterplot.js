@@ -15,11 +15,6 @@ class Scatterplot {
      }
      this.data = _data;
      this.initVis();
-
-     if (selectedData.length > 0) {
-      this.data = selectedData;
-    }
-     
    }
 
    initVis(){
