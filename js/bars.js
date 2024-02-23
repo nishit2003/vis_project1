@@ -1,3 +1,5 @@
+
+
 // set the dimensions and margins of the graph
 const margin = {top: 60, right: 50, bottom: 50, left: 20};
 const width = 490 - margin.left - margin.right;
@@ -147,3 +149,4 @@ svg
   .text("Number of Counties")
 
 })
+

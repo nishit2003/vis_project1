@@ -116,10 +116,10 @@ highlightCounties(countyIDs) {
    let vis = this;
 
    vis.counties.attr('fill', d => {
-    console.log(d)
+    // console.log(d)
     // console.log("d.cnty_fips:", d.cnty_fips);
      if (countyIDs.includes(d.id)) {
-      console.log("hi");
+      // console.log("hi");
        return 'yellow'; 
      } else {
        if (d.properties.percent_no_heath_insurance !== -1) {
