@@ -1,20 +1,24 @@
+// global variables
 countyfilter=[];
-let choroplethMap; // Declare choroplethMap variable at the top level
+let choroplethMap; 
+attribute1 = 'poverty_perc'; // Default attribute 1
+   attribute2 = 'percent_no_heath_insurance'; // Default attribute 2
+let attributeNames;
 
 // Scatterplot
 let data, scatterplot;
 d3.csv('data/national_health_data.csv')
   .then(csvdata => {
    data=csvdata;
-    data = data.filter(d => d.poverty_perc !== -1 && d.percent_no_heath_insurance !== -1);
-
+    data = data.filter(d => d.attribute1 !== -1 && d.attribute2 !== -1);
+    
     // Convert string values to numbers
     data.forEach(d => {
-      d.poverty_perc = +d.poverty_perc;
-      d.percent_no_heath_insurance = +d.percent_no_heath_insurance;
+      d.attribute1 = +d.attribute1;
+      d.attribute1 = +d.attribute2;
     });
 
-    scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data, choroplethMap);
+    scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data, choroplethMap, attribute1, attribute2, attributeNames);
     scatterplot.updateVis();
   })
   .catch(error => console.error(error));
@@ -32,7 +36,7 @@ d3.selectAll('.legend-btn').on('click', function() {
  
    // Filter data accordingly and update vis
    scatterplot.data = data.filter(d => selectedArea.includes(d.urban_rural_status));
-   scatterplot.updateVis();
+   scatterplot.updateVis(attribute1,attribute2);
  });
 
 

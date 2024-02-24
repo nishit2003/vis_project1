@@ -1,4 +1,8 @@
 
+   attribute1 = 'poverty_perc'; // Default attribute 1
+   attribute2 = 'percent_no_heath_insurance'; // Default attribute 2
+
+
 document.getElementById('attributeForm').addEventListener('submit', function(event) {
    event.preventDefault(); // Prevent form submission
  
@@ -27,6 +31,29 @@ document.getElementById('attributeForm').addEventListener('submit', function(eve
  
    // Update header with selected attributes
    document.getElementById('dashboardTitle').textContent = `US Health Dashboard - ${attributeNames[attribute1]} vs ${attributeNames[attribute2]}`;
+
+   updateGraphs(attribute1, attribute2);
  });
  
+ function updateGraphs(attribute1, attribute2) {
+  
 
+   console.log(attribute1)
+   console.log(attribute2)
+
+   // Update all graphs based on the selected attributes
+   scatterplot.updateVis(attribute1, attribute2); // Update scatterplot
+   // choroplethMap.updateVis(attribute1); // Update choropleth map 1
+   // choroplethMap2.updateVis(attribute2); // Update choropleth map 2
+   // barChart1.updateVis(attribute1); // Update bar chart 1
+   // barChart2.updateVis(attribute2); // Update bar chart 2
+}
+
+window.onload = function() {
+   updateGraphs();
+};
+
+document.getElementById('refreshButton').addEventListener('click', function() {
+   // Reload the window
+   window.location.reload();
+});

@@ -17,7 +17,7 @@ const svg = d3.select("#histogram")
 
 // parse the Data
 d3.csv("data/national_health_data.csv")
-.then(function(data){
+.then(function(data){ 
 
    data = data.filter(d => d.poverty_perc !== -1);
 
@@ -30,7 +30,9 @@ d3.csv("data/national_health_data.csv")
 const xScale = d3.scaleLinear()
   .domain([0,50])
   .range([0, width]);
-svg
+
+
+
 svg.append('g')
 .attr("transform", `translate(0, ${height})`)
 .call(d3.axisBottom(xScale)
@@ -39,15 +41,17 @@ svg.append('g')
   .tickPadding(8) );
 
 
-  const maxPovertyPerc = d3.max(data, d => d.poverty_perc);
+const maxPovertyPerc = d3.max(data, d => d.poverty_perc);
 
 // Y scale and Axis
 const yScale = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, maxPovertyPerc]);  
-
-
+    .domain([0, maxPovertyPerc]); 
+    
 const yAxis = svg.append('g')
+
+
+
 
 // set horizontal grid line
 const GridLine = () => d3.axisLeft().scale(yScale);
@@ -116,9 +120,9 @@ svg
     .attr("transform", d => `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
     .attr("width", d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 1))
     .attr("height", d => height - yScale(d.length))
-    .style("fill", "#0072BC")
+    .style("fill", "#0172BC")
   .on("mouseover", mouseover)
-  .on("mousemove", mousemove)
+  .on("mousemove", mousemove) 
   .on("mouseleave", mouseleave);
 
 // set title
@@ -148,5 +152,8 @@ svg
     .attr("text-anchor", "start")
   .text("Number of Counties")
 
+  
 })
+
+
 
