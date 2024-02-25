@@ -31,16 +31,23 @@ class Scatterplot {
     .range(['#BFEFFF', '#87CEEB', '#4682B4', '#1E90FF']) 
     .domain(['Rural','Small_CIty','Suburban','Urban']);
 
-   vis.xScale = d3.scaleLinear()
-    .range([0, vis.width])
-    .domain([d3.min(vis.data, d => d[attribute1]), d3.max(vis.data, d => d[attribute1])])
-    .nice();
-    
+    vis.xScale = d3
+      .scaleLinear()
+      .range([0, vis.width])
+      .domain([
+        d3.min(vis.data, (d) => +d[attribute1]),
+        d3.max(vis.data, (d) => +d[attribute1]),
+      ])
+      .nice();
 
-   vis.yScale = d3.scaleLinear()
-    .range([vis.height, 0])
-    .domain([d3.min(vis.data, d => d[attribute2]), d3.max(vis.data, d => d[attribute2])])
-    .nice();
+    vis.yScale = d3
+      .scaleLinear()
+      .range([vis.height, 0])
+      .domain([
+        d3.min(vis.data, (d) => +d[attribute2]),
+        d3.max(vis.data, (d) => +d[attribute2]),
+      ])
+      .nice(); 
 
 // Initialize axes
    vis.xAxis = d3.axisBottom(vis.xScale)
@@ -110,7 +117,7 @@ choroplethMap2.highlightCounties(selectedCountyIDs);
 
 // update histograph
 // updateHistogram(selectedCountyIDs);
-
+updateVis();
 }
 }
 
@@ -125,8 +132,8 @@ choroplethMap2.highlightCounties(selectedCountyIDs);
 
   // Specificy accessor functions
   vis.colorValue = d => d.urban_rural_status;
-  vis.xValue = d => d[attribute1];
-  vis.yValue = d => d[attribute2];
+  vis.xValue = d => +d[attribute1];
+  vis.yValue = d => +d[attribute2];
 
   // Set the scale input domains
   vis.xScale.domain([0, d3.max(vis.data, vis.xValue)]);

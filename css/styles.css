@@ -64,6 +64,7 @@ input select{
 }
 
 
+
 /* Scatter Plot  */
  /* Axis */
  .axis line {
@@ -184,6 +185,11 @@ input select{
   margin-left: 3px;
   /* top: 0; */
 }
+
+h2{
+  margin-left: 20px;
+  display: inline;
+  }
 
  #states {
   fill: #aaa;

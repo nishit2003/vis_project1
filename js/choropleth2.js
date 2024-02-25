@@ -58,10 +58,7 @@ class ChoroplethMap2 {
           .translate([vis.width / 2, vis.height / 2])
           .scale(vis.width);
 
-      vis.colorScale = d3.scaleLinear()
-          .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.percent_no_heath_insurance))
-          .range(['#e5eded', '#004c4c'])
-          .interpolate(d3.interpolateHcl);
+      
 
 
       vis.path = d3.geoPath()
@@ -85,8 +82,14 @@ class ChoroplethMap2 {
    * Method to update the visualization based on new data or configuration.
    */
 
-  updateVis() {
+  updateVis(attribute2) {
       let vis = this;
+
+      vis.colorScale = d3.scaleLinear()
+          .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties[attribute2]))
+          .range(['#ffffd6', '#4c4c2d'])
+          .interpolate(d3.interpolateHcl);
+
       vis.counties = vis.g.append("g")
           .attr("id", "counties")
           .selectAll("path")
@@ -95,10 +98,10 @@ class ChoroplethMap2 {
           .attr("d", vis.path)
           // .attr("class", "county-boundary")
           .attr('fill', d => {
-              if (d.properties.percent_no_heath_insurance !== -1) {
+              if (d.properties[attribute2] !== -1) {
                 // console.log(d.properties);
 
-                  return vis.colorScale(d.properties.percent_no_heath_insurance);
+                  return vis.colorScale(d.properties[attribute2]);
               } else {
                   return 'url(#lightstripe)';
               }
@@ -108,7 +111,7 @@ class ChoroplethMap2 {
           .on('mousemove', (event, d) => {
               //   console.log(d);
               //   console.log(event);
-              const People_wo_H = d.properties.percent_no_heath_insurance ? `<strong>${d.properties.percent_no_heath_insurance}</strong> % of people without health insurance` : "0";
+              const People_wo_H = d.properties[attribute2] ? `<strong>${d.properties[attribute2]}</strong> % : ${attribute2}` : "0";
 
               d3.select('#tooltip_map')
                   .style('display', 'block')
@@ -138,7 +141,7 @@ highlightCounties(countyIDs) {
       // console.log("d.cnty_fips:", d.cnty_fips);
       if (countyIDs.includes(d.id)) {
           // console.log("hi");
-          return 'yellow';
+          return '#FFA899';
       } else {
           if (d.properties.percent_no_heath_insurance !== -1) {
               return vis.colorScale(d.properties.percent_no_heath_insurance);

@@ -112,7 +112,7 @@ class ChoroplethMap {
           .on('mousemove', (event, d) => {
               //   console.log(d);
               //   console.log(event);
-              const People_wo_H = d.properties[attribute1] ? `<strong>${d.properties[attribute1]}</strong> % is the poverty rate` : "0";
+              const People_wo_H = d.properties[attribute1] ? `<strong>${d.properties[attribute1]}</strong> % : ${attribute1}` : "0";
 
               d3.select('#tooltip_map')
                   .style('display', 'block')
@@ -126,9 +126,6 @@ class ChoroplethMap {
           .on('mouseleave', () => {
               d3.select('#tooltip_map').style('display', 'none');
           });
-
-
-      // Method to highlight selected counties based on county IDs
       
   }
 
@@ -142,7 +139,7 @@ highlightCounties(countyIDs) {
       // console.log("d.cnty_fips:", d.cnty_fips);
       if (countyIDs.includes(d.id)) {
           // console.log("hi");
-          return 'yellow';
+          return '#FFA899';
       } else {
           if (d.properties.attribute1 !== -1) {
               return vis.colorScale(d.properties[attribute1]);

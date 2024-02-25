@@ -65,9 +65,6 @@ let attribute2 = 'percent_no_heath_insurance'; // Default attribute 2
 let data, scatterplot;
 d3.csv('data/national_health_data.csv')
   .then(csvdata => {
-    console.log("hi")
-    console.log(attribute1)
-
    data=csvdata;
     data = data.filter(d => d.attribute1 !== -1 && d.attribute2 !== -1);
     
@@ -105,7 +102,7 @@ d3.selectAll('.legend-btn').on('click', function() {
   d3.csv('data/national_health_data.csv')
 ]).then(data => {
   const geoData = data[0];
-  const geoData2 = data[0];
+  // const geoData2 = data[0];
   let data_poverty = data[1];
   let filtered_health_data = data[1];
 
@@ -113,36 +110,52 @@ d3.selectAll('.legend-btn').on('click', function() {
   data_poverty= data_poverty.filter(d => d[attribute1] !== '-1');
   // console.log(data_poverty)
 
-  filtered_health_data= filtered_health_data.filter(d => d.percent_no_heath_insurance !== '-1'&& !isNaN(d.percent_no_heath_insurance));
+  // filtered_health_data= filtered_health_data.filter(d => d.percent_no_heath_insurance !== '-1'&& !isNaN(d.percent_no_heath_insurance));
 
 
-  geoData2.objects.counties.geometries.forEach(d => {
-    for (let i = 0; i < data_poverty.length; i++) {
-      if (d.id === data_poverty[i].cnty_fips) {
-        // console.log(attribute1)
-        // console.log(`Assigning ${data_poverty[i][attribute1]} to ${attribute1} and ${d.properties.percent_no_heath_insurance}`);
-        d.properties[attribute1] = +data_poverty[i][attribute1];
-        
-        console.log(attribute1)
-        console.log(d.properties[attribute1])
-      }
-    }
-  });
+  // geoData.objects.counties.geometries.forEach(d => {
+  //   for (let i = 0; i < data_poverty.length; i++) {
+  //     if (d.id === data_poverty[i].cnty_fips) {
+  //       // console.log(attribute1)
+  //       // console.log(`Assigning ${data_poverty[i][attribute1]} to ${attribute1} and ${d.properties.percent_no_heath_insurance}`);
+  //       d.properties[attribute1] = +data_poverty[i][attribute1];
 
-  geoData2.objects.counties.geometries.forEach(d => {
+  //     }
+  //   }
+  // });
+
+  geoData.objects.counties.geometries.forEach(d => {
     for (let i = 0; i < filtered_health_data.length; i++) {
       if (d.id === filtered_health_data[i].cnty_fips) {
+        // console.log(filtered_health_data[i].cnty_fips)
+        d.properties.cnty_fips = +filtered_health_data[i].cnty_fips;
+        d.properties.display_name = filtered_health_data[i].display_name;
+        d.properties.poverty_perc = +filtered_health_data[i].poverty_perc;
+        d.properties.median_household_income = +filtered_health_data[i].median_household_income;
+        d.properties.education_less_than_high_school_percent = +filtered_health_data[i].education_less_than_high_school_percent;
+        d.properties.air_quality = +filtered_health_data[i].air_quality;
+        d.properties.park_access = +filtered_health_data[i].park_access;
+        d.properties.percent_inactive = +filtered_health_data[i].percent_inactive;
+        d.properties.percent_smoking = +filtered_health_data[i].percent_smoking;
+        d.properties.urban_rural_status = filtered_health_data[i].urban_rural_status;
+        d.properties.elderly_percentage = +filtered_health_data[i].elderly_percentage;
+        d.properties.number_of_hospitals = +filtered_health_data[i].number_of_hospitals;
+        d.properties.number_of_primary_care_physicians = +filtered_health_data[i].number_of_primary_care_physicians;
         d.properties.percent_no_heath_insurance = +filtered_health_data[i].percent_no_heath_insurance;
-      }
+        d.properties.percent_high_blood_pressure = +filtered_health_data[i].percent_high_blood_pressure;
+        d.properties.percent_coronary_heart_disease = +filtered_health_data[i].percent_coronary_heart_disease;
+        d.properties.percent_stroke = +filtered_health_data[i].percent_stroke;
+        d.properties.percent_high_cholesterol = +filtered_health_data[i].percent_high_cholesterol;
+              }
     }
   });
 
 
-  choroplethMap = new ChoroplethMap({ parentElement: '.viz'}, geoData, attribute1);
+  choroplethMap = new ChoroplethMap({ parentElement: '.viz'}, geoData, attribute1,attributeNames);
   // choroplethMap.updateVis();
 
   choroplethMap2 = new ChoroplethMap2({ parentElement: '.viz2'},geoData, attribute2);
-  choroplethMap2.updateVis();
+  // choroplethMap2.updateVis();
 })
 .catch(error => console.error(error));
 
