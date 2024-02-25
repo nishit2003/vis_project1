@@ -1,5 +1,3 @@
-
-
 class Scatterplot {
 
    /**
@@ -23,7 +21,7 @@ class Scatterplot {
 
    initVis(){
       let vis = this;
-      console.log(d3.min(vis.data, d => d[attribute1]));
+      // console.log(d3.min(vis.data, d => d[attribute1]));
       
       vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
       vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
@@ -37,6 +35,7 @@ class Scatterplot {
     .range([0, vis.width])
     .domain([d3.min(vis.data, d => d[attribute1]), d3.max(vis.data, d => d[attribute1])])
     .nice();
+    
 
    vis.yScale = d3.scaleLinear()
     .range([vis.height, 0])
@@ -100,10 +99,10 @@ if (event.selection) {
     });
 
     // Log the selected circles
-    console.log(selectedCircles.data());
+    // console.log(selectedCircles.data());
 
 const selectedCountyIDs = selectedCircles.data().map(d => d.cnty_fips);
-console.log(selectedCountyIDs);
+// console.log(selectedCountyIDs);
 
 // Pass the selected county IDs to the method in the ChoroplethMap class
 choroplethMap.highlightCounties(selectedCountyIDs);
@@ -120,8 +119,7 @@ choroplethMap2.highlightCounties(selectedCountyIDs);
 
   updateVis(attribute1,attribute2) {
    let vis = this;
-    console.log(attribute1)
-    console.log(attribute2)
+
     vis.chart.selectAll('.axis-title').remove();
 
 
@@ -196,3 +194,6 @@ vis.yAxisG
 
  }
 }
+
+
+ 
