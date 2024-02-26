@@ -63,8 +63,9 @@ vis.svg
   .call(GridLine()
     .tickSize(-vis.width,0,0)
     .tickFormat("")
-    .ticks(10)
-);
+    .ticks(10))
+    .selectAll("line")
+  .style("opacity", 0.35);;
 
   // set Y axis label
 vis.svg

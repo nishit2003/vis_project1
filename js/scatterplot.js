@@ -28,7 +28,7 @@ class Scatterplot {
    
       // Initialize scales
     vis.colorScale = d3.scaleOrdinal()
-    .range(['#BFEFFF', '#87CEEB', '#4682B4', '#1E90FF']) 
+    .range(['#BFEFFF', '#87CEEB', '#1E90FF', '#4682B4']) 
     .domain(['Rural','Small_CIty','Suburban','Urban']);
 
     vis.xScale = d3

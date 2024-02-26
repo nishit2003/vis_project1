@@ -111,7 +111,7 @@ class ChoroplethMap2 {
           .on('mousemove', (event, d) => {
               //   console.log(d);
               //   console.log(event);
-              const People_wo_H = d.properties[attribute2] ? `<strong>${d.properties[attribute2]}</strong> % : ${attribute2}` : "0";
+              const People_wo_H = d.properties[attribute2] ? `<strong>${d.properties[attribute2]}</strong> % : ${attributeNames1[attribute2]}` : "0";
 
               d3.select('#tooltip_map')
                   .style('display', 'block')
@@ -145,6 +145,7 @@ highlightCounties(countyIDs) {
       } else {
           if (d.properties.percent_no_heath_insurance !== -1) {
               return vis.colorScale(d.properties.percent_no_heath_insurance);
+            // return "#ffffff"
           } else {
               return 'url(#lightstripe)';
 
