@@ -32,6 +32,10 @@ let attribute2 = 'percent_no_heath_insurance'; // Default attribute 2
     
       // Update header with selected attributes
       document.getElementById('dashboardTitle').textContent = `US Health Dashboard - ${attributeNames[attribute1]} vs ${attributeNames[attribute2]}`;
+      document.getElementById('attr1').textContent = `Attribute 1 - ${attributeNames[attribute1]}`;
+      document.getElementById('attr2').textContent = `Attribute 2 - ${attributeNames[attribute2]}`;
+      document.getElementById('att1').textContent = `Attribute 1 - ${attributeNames[attribute1]}`;
+      document.getElementById('att2').textContent = `Attribute 2 - ${attributeNames[attribute2]}`;
       updateGraphs(attribute1, attribute2);
     });
 
@@ -50,32 +54,34 @@ let attribute2 = 'percent_no_heath_insurance'; // Default attribute 2
    
       choroplethMap.updateVis(attribute1); // Update choropleth map 1
       choroplethMap2.updateVis(attribute2); // Update choropleth map 2
-      // barChart1.updateVis(attribute1); // Update bar chart 1
-      // barChart2.updateVis(attribute2); // Update bar chart 2
+      histogram.updateVis(attribute1); // Update bar chart 1
+      histogram2.updateVis(attribute2); // Update bar chart 2
    }
    
-   // window.onload = function() {
-   //    updateGraphs();
-   // };
-   
- 
-
-
 // Scatterplot
 let data, scatterplot;
 d3.csv('data/national_health_data.csv')
   .then(csvdata => {
    data=csvdata;
-    data = data.filter(d => d.attribute1 !== -1 && d.attribute2 !== -1);
     
+   data = data.filter(d => d[attribute1] !== '-1' && d[attribute2] !== '-1');
+
     // Convert string values to numbers
     data.forEach(d => {
-      d.attribute1 = +d.attribute1;
-      d.attribute1 = +d.attribute2;
+      d[attribute1] = +d[attribute1];
+      d[attribute2] = +d[attribute2];
     });
+
+
 
     scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data, choroplethMap, attribute1, attribute2, attributeNames);
     scatterplot.updateVis();
+
+    histogram = new Histogram({ parentElement: '#histogram'}, data, attribute1);
+    histogram.updateVis();
+
+    histogram2 = new Histogram2({ parentElement: '#histogram2'}, data, attribute2);
+    histogram2.updateVis();
   })
   .catch(error => console.error(error));
 
@@ -102,27 +108,11 @@ d3.selectAll('.legend-btn').on('click', function() {
   d3.csv('data/national_health_data.csv')
 ]).then(data => {
   const geoData = data[0];
-  // const geoData2 = data[0];
   let data_poverty = data[1];
   let filtered_health_data = data[1];
 
 
   data_poverty= data_poverty.filter(d => d[attribute1] !== '-1');
-  // console.log(data_poverty)
-
-  // filtered_health_data= filtered_health_data.filter(d => d.percent_no_heath_insurance !== '-1'&& !isNaN(d.percent_no_heath_insurance));
-
-
-  // geoData.objects.counties.geometries.forEach(d => {
-  //   for (let i = 0; i < data_poverty.length; i++) {
-  //     if (d.id === data_poverty[i].cnty_fips) {
-  //       // console.log(attribute1)
-  //       // console.log(`Assigning ${data_poverty[i][attribute1]} to ${attribute1} and ${d.properties.percent_no_heath_insurance}`);
-  //       d.properties[attribute1] = +data_poverty[i][attribute1];
-
-  //     }
-  //   }
-  // });
 
   geoData.objects.counties.geometries.forEach(d => {
     for (let i = 0; i < filtered_health_data.length; i++) {
@@ -159,9 +149,27 @@ d3.selectAll('.legend-btn').on('click', function() {
 })
 .catch(error => console.error(error));
 
+// let data_bar;
+// // Histrogram
+// d3.csv('data/national_health_data.csv')
+//   .then(data_bar => {
+//      // Convert string values to numbers
+//      data_bar.forEach(d => {
+//       data_bar = data_bar.filter(d => d.poverty_perc !== -1 );
+
+//       d.poverty_perc = +d.poverty_perc;
+//     });
+
+//     histogram = new Histogram({ parentElement: '#histogram'}, data_bar);
+//     histogram.updateVis();
+//   })
+//   .catch(error => console.error(error));
+
 
 
 document.getElementById('refreshButton').addEventListener('click', function() {
   // Reload the window
   window.location.reload();
 });
+
+

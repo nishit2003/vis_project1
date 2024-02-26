@@ -72,7 +72,6 @@ class Scatterplot {
 
    
    // Append group element that will contain our actual chart 
-    // and position it according to the given margin config
     vis.chart = vis.svg.append('g')
         .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
@@ -161,8 +160,8 @@ updateVis();
             <div class="tooltip-title">${d.display_name}</div>
             <div><i> Median Income : ${d.median_household_income}</i></div>
             <ul>
-              <li> People wihtout health Insurance${d.percent_no_heath_insurance} %</li>
-              <li>Poverty rate  ${d.poverty_perc} %</li>
+              <li> ${attributeNames1[attribute1]} : ${d[attribute1]} %</li>
+              <li> ${attributeNames1[attribute2]} ${d[attribute2]} %</li>
             </ul>
           `);
       })
@@ -181,14 +180,14 @@ updateVis();
    .attr('x', vis.width + 10)
    .attr('dy', '.71em')
    .style('text-anchor', 'end')
-   .text(attribute2);
+   .text(attributeNames1[attribute2]);
 
 vis.chart.append('text')
    .attr('class', 'axis-title')
    .attr('x', 0)
    .attr('y', 0)
    .attr('dy', '.71em')
-   .text(attribute1);
+   .text(attributeNames1[attribute1]);
    
    // Update the axes/gridlines
   vis.xAxisG

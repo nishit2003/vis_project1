@@ -90,7 +90,7 @@
 
                 <div class="row-map">
                     <div class="viz column">
-                        <h2>Attribute 1</h2>
+                        <h2 id="attr1">Attribute 1</h2>
                     
                     
 
@@ -114,7 +114,7 @@
                     <div class="vl"><!-- 2nd map  --></div>
 
                     <div class="viz2 column">
-                        <h2>Attribute 2</h2>
+                        <h2 id="attr2">Attribute 2</h2>
                     
 
                     <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -140,10 +140,20 @@
                 <!-- Barsss -->
 
                 <h1>Distribution visualizations (Histogram)</h1>
-                <div class="row-bars">
-                    <div id="histogram" class="column"></div>
+                <div class="row-map">
+
+                    <div class="column" >
+                        <h2 id="att1">Attribute 1</h2>
+                        <div id="histogram" ></div>
+                    </div>
+                    
                     <div class="vl2"></div>
-                    <div id="histogram2" class="column"></div>
+
+                    <div class="column" >
+                        <h2 id="att2">Attribute 2</h2>
+                        <div id="histogram2" ></div>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -159,6 +169,6 @@
         <script src="js/choropleth2.js"></script>
         <script src="js/bars.js"></script>
         <script src="js/bars2.js"></script>
-        <script src="js/script.js"></script>
+        <!-- <script src="js/script.js"></script> -->
     </body>
 </html>

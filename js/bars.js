@@ -1,159 +1,177 @@
+const attributeNames1 = {
+  poverty_perc: 'Poverty Percentage',
+  median_household_income: 'Median Household Income',
+  education_less_than_high_school_percent: 'Education Less Than High School Percentage',
+  air_quality: 'Air Quality',
+  park_access: 'Park Access',
+  percent_inactive: 'Percent Inactive',
+  percent_smoking: 'Percent Smoking',
+  urban_rural_status: 'Urban Rural Status',
+  elderly_percentage: 'Elderly Percentage',
+  number_of_hospitals: 'Number of Hospitals',
+  number_of_primary_care_physicians: 'Number of Primary Care Physicians',
+  percent_no_heath_insurance: 'Percent No Health Insurance',
+  percent_high_blood_pressure: 'Percent High Blood Pressure',
+  percent_coronary_heart_disease: 'Percent Coronary Heart Disease',
+  percent_stroke: 'Percent Stroke',
+  percent_high_cholesterol: 'Percent High Cholesterol',
+};
 
 
-// set the dimensions and margins of the graph
-const margin = {top: 60, right: 50, bottom: 50, left: 20};
-const width = 490 - margin.left - margin.right;
-const height = 550 - margin.top - margin.bottom;
+class Histogram {
 
-// append the svg object to the body of the page
-const svg = d3.select("#histogram")
-  .append("svg")
-    .attr("width", 490)
-    .attr("height", 550)
-    .attr("viewBox", "0 0 490 550")
-    // .attr("preserveAspectRatio", "xMinYMin")
-  .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-// parse the Data
-d3.csv("data/national_health_data.csv")
-.then(function(data){ 
-
-   data = data.filter(d => d.poverty_perc !== -1);
-
-   data.forEach(function(d) {
-      d.poverty_perc = +d.poverty_perc;
-  });
+  /**
+   * Class constructor with basic chart configuration
+   * @param {Object}
+   * @param {Array}
+   */
+  constructor(_config, _data) {
+    this.config = {
+      parentElement: _config.parentElement,
+      containerWidth: _config.containerWidth || 500,
+      containerHeight: _config.containerHeight || 550,
+      margin: _config.margin || {top: 50, right: 20, bottom: 50, left: 35},
+      tooltipPadding: _config.tooltipPadding || 15
+    }
+    this.data = _data;
+    this.initVis();
+  }
 
 
-// X scale and Axis
-const xScale = d3.scaleLinear()
-  .domain([0,50])
-  .range([0, width]);
+  initVis(){
+    let vis = this;
+    vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
+    vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
+  
+// Define size of SVG drawing area
+    vis.svg = d3.select(vis.config.parentElement)
+    .append('svg')
+    .attr('width', vis.config.containerWidth)
+    .attr('height', vis.config.containerHeight)
+    .append('g')
+    .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
 
+  // X scale and Axis
+vis.xScale = d3.scaleLinear()
+.domain([0,50])
+.range([0, vis.width]);
 
-svg.append('g')
-.attr("transform", `translate(0, ${height})`)
-.call(d3.axisBottom(xScale)
+vis.svg.append('g')
+.attr("transform", `translate(0, ${vis.height})`)
+.call(d3.axisBottom(vis.xScale)
   .tickValues(d3.range(0, 48, 2)) 
   .tickSize(0)
   .tickPadding(8) );
 
 
-const maxPovertyPerc = d3.max(data, d => d.poverty_perc);
+  // Y scale and Axis
+ vis.yScale = d3.scaleLinear()
+      .range([vis.height, 0])
+      .domain([0, 375]);
+      
+  vis.yAxis = vis.svg.append('g')
+  vis.yAxis
+  .call(d3.axisLeft(vis.yScale).tickSize(0).tickPadding(4))
+  .call(d => d.select(".domain").remove());
 
-// Y scale and Axis
-const yScale = d3.scaleLinear()
-    .range([height, 0])
-    .domain([0, maxPovertyPerc]); 
-    
-const yAxis = svg.append('g')
-
-
-
-
-// set horizontal grid line
-const GridLine = () => d3.axisLeft().scale(yScale);
-svg
+const GridLine = () => d3.axisLeft().scale(vis.yScale);
+vis.svg
   .append("g")
     .attr("class", "grid")
   .call(GridLine()
-    .tickSize(-width,0,0)
+    .tickSize(-vis.width,0,0)
     .tickFormat("")
     .ticks(10)
 );
 
-// create a tooltip
-const tooltip = d3.select("body")
-  .append("div")
-    .attr("class", "tooltip");
+  // set Y axis label
+vis.svg
+.append("text")
+  .attr("class", "chart-labe")
+  .attr("x", -(vis.config.margin.left)*0.4)
+  .attr("y", -(vis.config.margin.top/5))
+  .attr("text-anchor", "start")
+.text("Number of Counties")
+
+}
+
+   updateVis(attribute1){
+      let vis = this;
+
+      vis.svg.selectAll(".chart-label").remove();
+
+      // set X axis label
+      vis.svg
+         .append("text")
+            .attr("class", "chart-label")
+            .attr("x", vis.width/2)
+            .attr("y", vis.height+vis.config.margin.bottom/1.7)
+            .attr("text-anchor", "middle")
+         .text(attributeNames1[attribute1]);
+
+
+      const tooltip = d3.select("body")
+         .append("div")
+            .attr("class", "tooltip");
+
 
 // tooltip events
-const mouseover = function(d) {
+const mouseover = function() {
     tooltip
       .style("opacity", 1)
     d3.select(this)
       .style("stroke", "#EF4A60")
       .style("opacity", .5)
 };
+
 const mousemove = function(event,d) {
     tooltip
+    d3.select('#tooltip_map')
+    .style('display', 'block')
+                  .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')
+                  .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
     .html(`<b>Number of counties</b>: ${d.length}`)
       .style("top", event.pageY - 10 + "px")
       .style("left", event.pageX + 10 + "px")
 };
-const mouseleave = function(d) {
-    tooltip
-      .style("opacity", 0)
-    d3.select(this)
-      .style("stroke", "none")
-      .style("opacity", 1)
+
+const mouseleave = function() {
+  tooltip.style("opacity", 0);
+      d3.select('#tooltip_map').style('display', 'none');
+
+  d3.select(this)
+    .style("stroke", "none")
+    .style("opacity", 1);
 };
 
 // set the parameters for the histogram
 const histogram = d3.bin()
-  .value(d => d.poverty_perc)
-  .domain(xScale.domain())
-  .thresholds(xScale.ticks(50));
+  .value(d => d[attribute1])
+  .domain(vis.xScale.domain())
+  .thresholds(vis.xScale.ticks(50));
 
 // prepare data for bars
 const bins = histogram(data)
 
-// Scale the range of the data in the y domain
-yScale.domain([0, 300]);
-// yScale.domain([0, d3.max(bins, d => d.length)]);
-
-
-// add the y Axis
-yAxis
-  .call(d3.axisLeft(yScale).tickSize(0).tickPadding(4))
-  .call(d => d.select(".domain").remove());
 
 // append the bar rectangles to the svg element
-svg
+vis.svg
   .selectAll("rect")
     .data(bins)
   .join("rect")
     .attr("class", "bar")
     .attr("x", 1)
-    .attr("transform", d => `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-    .attr("width", d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 1))
-    .attr("height", d => height - yScale(d.length))
+    .attr("transform", d => `translate(${vis.xScale(d.x0)}, ${vis.yScale(d.length)})`)
+    .attr("width", d => Math.max(0, vis.xScale(d.x1) - vis.xScale(d.x0) - 1))
+    .attr("height", d => vis.height - vis.yScale(d.length))
     .style("fill", "#0172BC")
-  .on("mouseover", mouseover)
+  // .on("mouseover", mouseover)
   .on("mousemove", mousemove) 
-  .on("mouseleave", mouseleave);
+  .on("mouseover", mouseover)
+  .on("mouseleave", mouseleave)
+   }
 
-// set title
-svg
-  .append("text")
-    .attr("class", "chart-title")
-    .attr("x", -(margin.left)*0.4)
-    .attr("y", -(margin.top)/1.5)
-    .attr("text-anchor", "start")
-  .text("Poverty Rate Distribution")
-
-// set X axis label
-svg
-  .append("text")
-    .attr("class", "chart-label")
-    .attr("x", width/2)
-    .attr("y", height+margin.bottom/1.7)
-    .attr("text-anchor", "middle")
-  .text("Poverty Rate (%)");
-
-// set Y axis label
-svg
-  .append("text")
-    .attr("class", "chart-label")
-    .attr("x", -(margin.left)*0.4)
-    .attr("y", -(margin.top/5))
-    .attr("text-anchor", "start")
-  .text("Number of Counties")
-
-  
-})
-
-
+   
+}
 
