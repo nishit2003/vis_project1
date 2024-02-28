@@ -64,7 +64,7 @@ d3.csv('data/national_health_data.csv')
   .then(csvdata => {
    data=csvdata;
     
-   data = data.filter(d => d[attribute1] !== '-1' && d[attribute2] !== '-1');
+  //  data = data.filter(d => d[attribute1] !== '-1' && d[attribute2] !== '-1');
 
     // Convert string values to numbers
     data.forEach(d => {
@@ -72,6 +72,7 @@ d3.csv('data/national_health_data.csv')
       d[attribute2] = +d[attribute2];
     });
 
+    data = data.filter(d => d[attribute1] !== '-1' && d[attribute2] !== '-1');
 
 
     scatterplot = new Scatterplot({ parentElement: '#scatterplot'}, data, choroplethMap, attribute1, attribute2, attributeNames);
@@ -148,23 +149,6 @@ d3.selectAll('.legend-btn').on('click', function() {
   // choroplethMap2.updateVis();
 })
 .catch(error => console.error(error));
-
-// let data_bar;
-// // Histrogram
-// d3.csv('data/national_health_data.csv')
-//   .then(data_bar => {
-//      // Convert string values to numbers
-//      data_bar.forEach(d => {
-//       data_bar = data_bar.filter(d => d.poverty_perc !== -1 );
-
-//       d.poverty_perc = +d.poverty_perc;
-//     });
-
-//     histogram = new Histogram({ parentElement: '#histogram'}, data_bar);
-//     histogram.updateVis();
-//   })
-//   .catch(error => console.error(error));
-
 
 
 document.getElementById('refreshButton').addEventListener('click', function() {

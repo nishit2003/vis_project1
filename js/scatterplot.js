@@ -8,10 +8,10 @@ class Scatterplot {
    constructor(_config, _data, _choroplethMap) {
      this.config = {
        parentElement: _config.parentElement,
-       containerWidth: _config.containerWidth || 1400,
+       containerWidth: _config.containerWidth || 1300,
        containerHeight: _config.containerHeight || 700,
        margin: _config.margin || {top: 25, right: 20, bottom: 20, left: 35},
-       tooltipPadding: _config.tooltipPadding || 15
+       tooltipPadding: _config.tooltipPadding || 1
      }
      this.data = _data;
      this.choroplethMap = _choroplethMap; // Pass an instance of ChoroplethMap
