@@ -13,6 +13,12 @@ header {
    justify-content: center;
 }
 
+/* label{
+  font-size: 0px;
+  font-weight: 600;
+
+} */
+
 input select{
    width: 100%;
    padding: 12px;
@@ -94,16 +100,24 @@ input select{
  }
 
  /* Legend */
+ .scatterplot-container{
+  position: relative;
+ }
 .legend {
-   margin: 20px 0;
+  position: absolute;
+  top:0;
+  right: 0;
+   margin: 20px;
    list-style: none;
    padding: 0;
  }
  .legend-btn {
-   display: inline-block;
-   margin: 0 20px 0 0;
+   display: block;
+   margin: 0 40px 50px 0px;
    cursor: pointer;
    transition: all ease-in-out 200ms;
+   font-size: 40px;
+   /* padding: 10px 20px; */
  }
  .legend-btn:hover.legend-btn.inactive:hover  {
    opacity: 0.7;
@@ -112,8 +126,8 @@ input select{
    opacity: 0.5;
  }
  .legend-symbol {
-   width: 12px;
-   height: 12px;
+   width: 20px;
+   height: 20px;
    margin-right: 3px;
    display: inline-block;
  }

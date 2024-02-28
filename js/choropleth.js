@@ -8,7 +8,7 @@ class ChoroplethMap {
   constructor(_config, _data, _attribute1) {
       this.config = {
           parentElement: _config.parentElement,
-          containerWidth: _config.containerWidth || 550,
+          containerWidth: _config.containerWidth || 850,
           containerHeight: _config.containerHeight || 700,
           margin: _config.margin || {
               top: 10,
@@ -18,7 +18,7 @@ class ChoroplethMap {
           },
           tooltipPadding: 10,
           legendBottom: 50,
-          legendLeft: 20,
+          legendLeft: 0,
           legendRectHeight: 12,
           legendRectWidth: 150
       }
@@ -28,6 +28,7 @@ class ChoroplethMap {
       this.us = {
           ..._data
       };
+
       this.initVis();
   }
 
@@ -74,7 +75,24 @@ class ChoroplethMap {
           }))
           .attr("id", "state-borders")
           .attr("d", vis.path);
-  }
+
+          vis.linearGradient = vis.svg.append('defs').append('linearGradient')
+        .attr("id", "legend-gradient");
+
+          vis.legend = vis.svg.append('g')
+        .attr('class', 'legend')
+        .attr('transform', `translate(${vis.config.legendLeft},${vis.height - vis.config.legendBottom})`);
+
+        vis.legendRect = vis.legend.append('rect')
+        .attr('width', vis.config.legendRectWidth)
+        .attr('height', vis.config.legendRectHeight);
+
+    vis.legendTitle = vis.legend.append('text')
+        .attr('class', 'legend-title')
+        .attr('dy', '.35em')
+        .attr('y', -10)
+        .text(attributeNames1[attribute1]);
+        }
 
   /**
    * Method to update the visualization based on new data or configuration.
@@ -88,6 +106,11 @@ class ChoroplethMap {
     .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties[attribute1]))
     .range(['#d1eaeb', '#141717'])
     .interpolate(d3.interpolateHcl);
+
+    vis.legendStops1 = [
+        { color: '#d1eaeb', value: attribute1[0], offset: 0},
+        { color: '#141717', value: attribute1[1], offset: 100},
+      ];
 
       vis.counties = vis.g.append("g")
           .attr("id", "counties")
@@ -126,6 +149,27 @@ class ChoroplethMap {
           .on('mouseleave', () => {
               d3.select('#tooltip_map').style('display', 'none');
           });
+
+        // vis.legend.selectAll('.legend-label')
+        //   .data(vis.legendStops1)
+        // .join('text')
+        //   .attr('class', 'legend-label')
+        //   .attr('text-anchor', 'middle')
+        //   .attr('dy', '.35em')
+        //   .attr('y', 20)
+        //   .attr('x', (d,index) => {
+        //     return index == 0 ? 0 : vis.config.legendRectWidth;
+        //   })
+        //   .text(d => Math.round(d.value * 10 ) / 10);
+  
+      // Update gradient for legend
+      vis.linearGradient.selectAll('stop')
+          .data(vis.legendStops1)
+        .join('stop')
+          .attr('offset', d => d.offset)
+          .attr('stop-color', d => d.color);
+  
+      vis.legendRect.attr('fill', 'url(#legend-gradient)');
       
   }
 
@@ -139,7 +183,7 @@ highlightCounties(countyIDs) {
       // console.log("d.cnty_fips:", d.cnty_fips);
       if (countyIDs.includes(d.id)) {
           // console.log("hi");
-          return '#ffffff';
+          return '#FFA899';
       } else {
           if (d.properties.attribute1 !== -1) {
               return vis.colorScale(d.properties[attribute1]);
@@ -151,4 +195,5 @@ highlightCounties(countyIDs) {
       }
   });
 }
+
 }

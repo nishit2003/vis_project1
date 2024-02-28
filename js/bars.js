@@ -28,7 +28,7 @@ class Histogram {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 500,
+      containerWidth: _config.containerWidth || 800,
       containerHeight: _config.containerHeight || 550,
       margin: _config.margin || {top: 50, right: 20, bottom: 50, left: 35},
       tooltipPadding: _config.tooltipPadding || 15
@@ -60,9 +60,11 @@ vis.xScale = d3.scaleLinear()
 vis.svg.append('g')
 .attr("transform", `translate(0, ${vis.height})`)
 .call(d3.axisBottom(vis.xScale)
-  .tickValues(d3.range(0, 48, 2)) 
+  .tickValues(d3.range(0, 50, 5)) 
   .tickSize(0)
   .tickPadding(8) );
+
+  
 
 
   // Y scale and Axis
@@ -70,8 +72,7 @@ vis.svg.append('g')
       .range([vis.height, 0])
       .domain([0, 375]);
       
-  vis.yAxis = vis.svg.append('g')
-  vis.yAxis
+  vis.svg.append('g')
   .call(d3.axisLeft(vis.yScale).tickSize(0).tickPadding(4))
   .call(d => d.select(".domain").remove());
 
@@ -103,14 +104,13 @@ vis.svg
       vis.svg.selectAll(".chart-label").remove();
 
       // set X axis label
-      vis.svg
-         .append("text")
-            .attr("class", "chart-label")
-            .attr("x", vis.width/2)
-            .attr("y", vis.height+vis.config.margin.bottom/1.7)
-            .attr("text-anchor", "middle")
-         .text(attributeNames1[attribute1]);
-
+  vis.svg
+  .append("text")
+     .attr("class", "chart-label")
+     .attr("x", vis.width/2)
+     .attr("y", vis.height+vis.config.margin.bottom/1.7)
+     .attr("text-anchor", "middle")
+  .text(attributeNames1[attribute1]);
 
       const tooltip = d3.select("body")
          .append("div")

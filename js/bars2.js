@@ -9,7 +9,7 @@ class Histogram2 {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 500,
+      containerWidth: _config.containerWidth || 800,
       containerHeight: _config.containerHeight || 550,
       margin: _config.margin || {top: 50, right: 20, bottom: 50, left: 35},
       tooltipPadding: _config.tooltipPadding || 15
@@ -41,7 +41,7 @@ vis.xScale = d3.scaleLinear()
 vis.svg.append('g')
 .attr("transform", `translate(0, ${vis.height})`)
 .call(d3.axisBottom(vis.xScale)
-  .tickValues(d3.range(0, 48, 2)) 
+  .tickValues(d3.range(0, 50, 5)) 
   .tickSize(0)
   .tickPadding(8) );
 

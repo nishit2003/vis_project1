@@ -1,3 +1,4 @@
+
 class ChoroplethMap2 {
 
   /**
@@ -8,7 +9,7 @@ class ChoroplethMap2 {
   constructor(_config, _data) {
       this.config = {
           parentElement: _config.parentElement,
-          containerWidth: _config.containerWidth || 550,
+          containerWidth: _config.containerWidth || 850,
           containerHeight: _config.containerHeight || 700,
           margin: _config.margin || {
               top: 10,
@@ -76,6 +77,24 @@ class ChoroplethMap2 {
           }))
           .attr("id", "state-borders")
           .attr("d", vis.path);
+          
+          vis.linearGradient1 = vis.svg.append('defs').append('linearGradient')
+        .attr("id", "legend-gradientt");
+
+          vis.legend = vis.svg.append('g')
+        .attr('class', 'legend')
+        .attr('transform', `translate(${vis.config.legendLeft},${vis.height - vis.config.legendBottom})`);
+
+        vis.legendRect = vis.legend.append('rect')
+        .attr('width', vis.config.legendRectWidth)
+        .attr('height', vis.config.legendRectHeight);
+
+    vis.legendTitle = vis.legend.append('text')
+        .attr('class', 'legend-title')
+        .attr('dy', '.35em')
+        .attr('y', -10)
+        .text(attributeNames1[attribute2])
+
   }
 
   /**
@@ -89,6 +108,13 @@ class ChoroplethMap2 {
           .domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties[attribute2]))
           .range(['#ffffd6', '#4c4c2d'])
           .interpolate(d3.interpolateHcl);
+
+          vis.legendStops = [
+            { color: '#ffffd6', value: attribute2[0], offset: 0},
+            { color: '#4c4c2d', value: attribute2[1], offset: 100},
+          ];
+
+          
 
       vis.counties = vis.g.append("g")
           .attr("id", "counties")
@@ -126,8 +152,27 @@ class ChoroplethMap2 {
               d3.select('#tooltip_map').style('display', 'none');
           });
 
-
-      // Method to highlight selected counties based on county IDs
+        //   vis.legend.selectAll('.legend-label')
+        //   .data(vis.legendStops)
+        // .join('text')
+        //   .attr('class', 'legend-label')
+        //   .attr('text-anchor', 'middle')
+        //   .attr('dy', '.35em')
+        //   .attr('y', 20)
+        //   .attr('x', (d,index) => {
+        //     console.log(index)
+        //     return index == 0 ? 0 : vis.config.legendRectWidth;
+        //   })
+        //   .text(d => Math.round(d.value * 10 ) / 10);
+  
+      // Update gradient for legend
+      vis.linearGradient1.selectAll('stop')
+          .data(vis.legendStops)
+        .join('stop')
+          .attr('offset', d => d.offset)
+          .attr('stop-color', d => d.color);
+  
+      vis.legendRect.attr('fill', 'url(#legend-gradientt)');
       
   }
 
