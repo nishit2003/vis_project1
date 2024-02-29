@@ -9,7 +9,7 @@ class Histogram2 {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 800,
+      containerWidth: _config.containerWidth || 700,
       containerHeight: _config.containerHeight || 550,
       margin: _config.margin || {top: 50, right: 20, bottom: 50, left: 35},
       tooltipPadding: _config.tooltipPadding || 15

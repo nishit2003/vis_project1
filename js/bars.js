@@ -28,7 +28,7 @@ class Histogram {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 800,
+      containerWidth: _config.containerWidth || 700,
       containerHeight: _config.containerHeight || 550,
       margin: _config.margin || {top: 50, right: 20, bottom: 50, left: 35},
       tooltipPadding: _config.tooltipPadding || 15
@@ -96,7 +96,41 @@ vis.svg
   .attr("text-anchor", "start")
 .text("Number of Counties")
 
-}
+
+this.brush = d3.brushX()
+      .extent([[0, 0], [this.width, this.height]])
+      .on("end", this.brushed.bind(this)); // Bind the brushed function to this instance
+
+    // Append brush to the chart
+    this.brushG = this.svg.append("g")
+      .attr("class", "brush")
+      .call(this.brush);
+  }
+
+  brushed(event) {
+    if (!event.selection) return;
+
+    const vis = this; // Store a reference to 'this' (the instance of Histogram) in 'vis'
+
+    // Get the selected bins
+    const selectedBins = vis.svg.selectAll(".bar").filter(d => {
+      const x = vis.xScale(d.x0) + 1; // Correctly access 'xScale' using 'vis'
+      return event.selection[0] <= x && x <= event.selection[1];
+    });
+
+    // Get the data associated with the selected bins
+    const selectedData = selectedBins.data().map(d => d.map(data => data.data));
+
+    // Extract county IDs from selected data
+    const selectedCountyIDs = selectedData.flatMap(d => d.map(data => data.cnty_fips));
+
+    // Highlight selected counties on choropleth map
+    vis.choroplethMap.highlightCounties(selectedCountyIDs);
+    // Call other necessary update methods if needed
+  }
+  
+
+
 
    updateVis(attribute1){
       let vis = this;

@@ -9,7 +9,7 @@ class ChoroplethMap2 {
   constructor(_config, _data) {
       this.config = {
           parentElement: _config.parentElement,
-          containerWidth: _config.containerWidth || 850,
+          containerWidth: _config.containerWidth || 750,
           containerHeight: _config.containerHeight || 700,
           margin: _config.margin || {
               top: 10,

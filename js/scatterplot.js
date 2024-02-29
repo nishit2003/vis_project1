@@ -116,7 +116,7 @@ choroplethMap2.highlightCounties(selectedCountyIDs);
 
 // update histograph
 // updateHistogram(selectedCountyIDs);
-updateVis();
+// updateVis();
 }
 }
 

@@ -8,7 +8,7 @@ class ChoroplethMap {
   constructor(_config, _data, _attribute1) {
       this.config = {
           parentElement: _config.parentElement,
-          containerWidth: _config.containerWidth || 850,
+          containerWidth: _config.containerWidth || 750,
           containerHeight: _config.containerHeight || 700,
           margin: _config.margin || {
               top: 10,
@@ -92,6 +92,7 @@ class ChoroplethMap {
         .attr('dy', '.35em')
         .attr('y', -10)
         .text(attributeNames1[attribute1]);
+        
         }
 
   /**
@@ -107,7 +108,7 @@ class ChoroplethMap {
     .range(['#d1eaeb', '#141717'])
     .interpolate(d3.interpolateHcl);
 
-    vis.legendStops1 = [
+    vis.legendStops = [
         { color: '#d1eaeb', value: attribute1[0], offset: 0},
         { color: '#141717', value: attribute1[1], offset: 100},
       ];
@@ -151,7 +152,7 @@ class ChoroplethMap {
           });
 
         // vis.legend.selectAll('.legend-label')
-        //   .data(vis.legendStops1)
+        //   .data(vis.legendStops)
         // .join('text')
         //   .attr('class', 'legend-label')
         //   .attr('text-anchor', 'middle')
@@ -164,7 +165,7 @@ class ChoroplethMap {
   
       // Update gradient for legend
       vis.linearGradient.selectAll('stop')
-          .data(vis.legendStops1)
+          .data(vis.legendStops)
         .join('stop')
           .attr('offset', d => d.offset)
           .attr('stop-color', d => d.color);
