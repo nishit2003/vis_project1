@@ -82,8 +82,7 @@ I would also like to discuss the significant difference in park access between t
 
 ## Library Used and Code Structure:
    The project utilizes D3.js, JavaScript, HTML, and CSS for development. The code is structured to facilitate ease of maintenance and scalability. 
- * The application is hosted online and can be found at [here](https://app.netlify.com/sites/spectacular-travesseiro-41aff1/overview
-   ) 
+ * The application is hosted online and can be found at [here]([https://ngrover.netlify.app]) 
  * Working Video: [Here](https://mailuc-my.sharepoint.com/:v:/r/personal/grovernt_mail_uc_edu/Documents/VIS%20Spring%2724/Screen%20Recording%202024-02-29%20at%2010.05.40%E2%80%AFPM.mov?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=sNhd4f)  
 
 ## Code Structure:
